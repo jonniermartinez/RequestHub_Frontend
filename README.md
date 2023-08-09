@@ -18,19 +18,21 @@ https://github.com/jonniermartinez/RequestHub_Frontend.git
 
 - Abre una terminal en el directorio del proyecto y ejecuta `npm install` para instalar todas las dependencias.
 - Luego, ejecuta `npm run dev` para iniciar el servidor en tu entorno local.
+- Ya tendrias el proyecto funcionando en tu computadora
 
 ### 4. Uso de GitHub Project:
 
 - Visita el tablero de GitHub Projects para ver las tareas y su estado.
-- Cada tarea se representa como un issue en el repositorio RequestHub_API
+- `https://github.com/users/jonniermartinez/projects/4`
 
 ### 5. Contribuir al Proyecto:
 
 - Identifica una tarea que tengas asignada, que te interese o que consideres que puedes resolver.
+- Si una tarea nueva que estas creando procura poner una descripción y convertila en un issue.
 - Crea una rama con un nombre descriptivo relacionado con el issue/tarea.
   - `git fetch origin`.
   - `git checkout ejemplo-tarea-123`.
-- Realiza los cambios necesarios en tu rama local y realiza commits.
+- Realiza los cambios necesarios en tu rama local y realiza el commits.
 - Subir los cambios a la rama de la tarea.
   - `git add .`
   - `git commit -m "mensaje de tus cambios"`
@@ -45,7 +47,7 @@ https://github.com/jonniermartinez/RequestHub_Frontend.git
 - Describe el problema detalladamente, Imagenes , incluyendo pasos para reproducirlo y el resultado esperado.
 - Asigna el issue a ti mismo o déjalo sin asignar para que otro miembro del equipo pueda trabajar en él.
 
-### 8. Revisión y Merge:
+### 8. Revisión y Merge (Pull Requests):
 
 - Los Pull Requests serán revisados por un mantenedor del proyecto.
 - Si es necesario realizar cambios adicionales, se te notificará en el PR.
