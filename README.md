@@ -1,3 +1,21 @@
+## Guía para Contribuir a Request Hub (FRONTEND)
+
+### 1. Requisitos previos:
+
+- Asegúrate de tener instalado Node.js en la versión estable 18.15 en tu PC.
+
+### 2. Configuración del Entorno de Desarrollo:
+
+- Utiliza el editor de código de tu preferencia, como VScode, Vim o Sublime Text.
+
+### 3. Configuración Local del Proyecto:
+
+- Clona el repositorio RequestHub_API en tu máquina local.
+
+```
+https://github.com/jonniermartinez/RequestHub_Frontend.git
+```
+
 - Abre una terminal en el directorio del proyecto y ejecuta `npm install` para instalar todas las dependencias.
 - Luego, ejecuta `npm run dev` para iniciar el servidor en tu entorno local.
 - Ya tendrias el proyecto funcionando en tu computadora
