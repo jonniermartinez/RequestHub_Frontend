@@ -13,7 +13,7 @@
 - Clona el repositorio RequestHub_API en tu máquina local.
 
 ```
-https://github.com/jonniermartinez/RequestHub_Frontend.git
+git clone https://github.com/jonniermartinez/RequestHub_Frontend.git
 ```
 
 - Abre una terminal en el directorio del proyecto y ejecuta `npm install` para instalar todas las dependencias.
