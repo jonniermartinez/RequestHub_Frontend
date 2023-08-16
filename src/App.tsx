@@ -1,10 +1,11 @@
 import "./App.css";
-import { Button } from "./components/ui/button";
+import Login from "./components/Login/Login";
 
 function App() {
   return (
     <>
-      <Button>shadcn library ready </Button>
+      <Login></Login>
+      
     </>
   );
 }
