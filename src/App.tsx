@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
 import RoutesNotFound from "./utilities/RoutesNotFound";
 import { PublicRoutes, PrivateRoutes } from "@/models";
+import { AuthGuard } from "./guards";
+
 // Pages
 const Auth = lazy(() => import("./pages/Auth/Auth"));
 const Private = lazy(() => import("./pages/Private/Private"));
@@ -22,7 +24,9 @@ function App() {
             <Route path="/" element={<Landing />} />
             <Route path={PublicRoutes.AUTH} element={<Auth />} />
             {/* RUTAS PRIVADAS protejer*/}
-            <Route path={PrivateRoutes.PRIVATE} element={<Private />} />
+            <Route element={<AuthGuard />}>
+              <Route path={PrivateRoutes.PRIVATE} element={<Private />} />
+            </Route>
           </RoutesNotFound>
         </BrowserRouter>
       </Suspense>
