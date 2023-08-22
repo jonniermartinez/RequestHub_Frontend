@@ -1,0 +1,75 @@
+.contenedor-form{
+    margin-top: 5%;
+    padding: 10px;
+}
+
+.form-group{
+    margin: 25px;
+}
+
+.form-group label{
+    display: flex;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Boton Enviar PQR */
+
+.contenedor-form .btn{
+    display: flex;
+    background-color: rgb(5, 24, 59);
+    color: white;
+    margin-top: 40px;
+    margin-left: 25px;
+}
+
+.btn:hover{
+    background-color: rgb(11, 18, 99);
+    color: white;
+}
+
+/* PQR */
+
+.pqr{
+    font-size: 40px;
+    font-family: 'Inter', sans-serif;
+    font-weight: bolder;
+    display: flex;
+}
+
+.llenar-pqr{
+    display: flex;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+}
+
+@media (max-width: 1080px) {
+
+    .contenedor-form-super{
+        width: 70%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .contenedor-form{
+        min-width: 90%;
+    }
+
+    .row{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .contenedor-form .btn{
+        width: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
