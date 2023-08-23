@@ -1,7 +1,7 @@
 import { Input } from "../ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "../ui/button";
-import foto from "./img/fotocualquiera.jpg";
+import ImageCompo from "../imageCompo/imageCompo";
 import "./Login.css";
 import { client } from "@/supabase";
 
@@ -22,9 +22,12 @@ function Login() {
   };
   return (
     <>
-      {/* implementar la logica tabs sing in or create account  */}
       <div className="principal">
-        <img className="img" src={foto} alt="foto para el login" />
+        <ImageCompo
+          texto="RequestHub"
+          url="src/components/imageCompo/img/img1.svg"
+        />
+        {/* <img className="img" src={foto} alt="foto para el login" />   */}
         <div className="grid w-full max-w-sm max-h-96 items-center gap-1.5">
           <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
             Login
