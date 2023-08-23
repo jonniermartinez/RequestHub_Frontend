@@ -23,7 +23,7 @@ export default function Auth() {
               <TabsTrigger value="account">Login</TabsTrigger>
               <TabsTrigger value="password">SingIn</TabsTrigger>
             </TabsList>
-            <TabsContent value="account" className=" h-1">
+            <TabsContent value="account" className="">
               <Login></Login>
             </TabsContent>
             <TabsContent value="password">
