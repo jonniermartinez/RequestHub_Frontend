@@ -59,7 +59,13 @@ export default function Login() {
           />
         </div>
         <div>
-          <Label htmlFor="password">Password</Label>
+          <div className="w-full flex items-center justify-between">
+            <Label htmlFor="password">Password</Label>
+            <p className=" text-right cursor-pointer pb-1 text-sm text-muted-foreground">
+              Forgot Password
+              {/* The dialog Componente to send email changin the password  */}
+            </p>
+          </div>
           <Input
             type="password"
             id="password"
