@@ -38,7 +38,7 @@ export default function Auth() {
         <div className=" w-5/12">
           {/* Sara aqui va tu compoente image */}
           <img
-            src="https://res.cloudinary.com/dtd4ibgoz/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1692712582/image_25_dxlig4.jpg?_s=public-apps"
+            src="https://res.cloudinary.com/dtd4ibgoz/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1692828667/prompthero-prompt-dba1357865c_bfs7ro.jpg?_s=public-apps"
             alt=""
             className=" max-h-screen w-full object-scale-contain"
           />
