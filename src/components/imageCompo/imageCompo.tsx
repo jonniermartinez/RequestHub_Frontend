@@ -9,7 +9,8 @@ interface Image {
 const ImageCompo: React.FC<Image> = ({ texto, url }) => {
 	return (
 		<>
-			<div className="col-md-6 image contenedor-imageCompo">
+			{/* <div className="col-md-6 image contenedor-imageCompo"> */}
+			<div className="w-1/2 image contenedor-imageCompo">
 				<img
 					className='imagenCompo'
 					src={url}

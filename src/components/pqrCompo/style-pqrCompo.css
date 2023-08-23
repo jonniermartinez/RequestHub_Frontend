@@ -1,75 +1,78 @@
-.contenedor-form{
-    margin-top: 5%;
-    padding: 10px;
-}
-
-.form-group{
-    margin: 25px;
-}
-
-.form-group label{
+.row{
     display: flex;
-    margin-bottom: 5px;
-    font-weight: bold;
+    justify-content: center;
+    align-items: top;
+}
+
+.content-all-fields{
+    height: 100%;
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+
+.content-fields{
+    margin-top: 15px;
     font-family: 'Inter', sans-serif;
 }
 
-/* Boton Enviar PQR */
+.content-fields label{
+    font-weight: bold;
+    margin: 0;
+}
 
-.contenedor-form .btn{
+.pqr h2{
     display: flex;
-    background-color: rgb(5, 24, 59);
-    color: white;
-    margin-top: 40px;
-    margin-left: 25px;
-}
-
-.btn:hover{
-    background-color: rgb(11, 18, 99);
-    color: white;
-}
-
-/* PQR */
-
-.pqr{
     font-size: 40px;
-    font-family: 'Inter', sans-serif;
-    font-weight: bolder;
-    display: flex;
 }
 
-.llenar-pqr{
-    display: flex;
+.small-text{
+    font-size: 15px;
+}
+
+.field{
+    padding-left: 10px;
+    border-radius: 5px;
+    padding-top: 5px;
+}
+
+.btn-enviar{
+    background-color: rgb(5, 5, 48);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
     font-family: 'Inter', sans-serif;
     font-weight: bold;
+}
+
+.btn-enviar:hover{
+    background-color: rgb(46, 46, 170);
+    transition: 0.2s;
 }
 
 @media (max-width: 1080px) {
 
-    .contenedor-form-super{
-        width: 70%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .contenedor-form{
-        min-width: 90%;
-    }
-
     .row{
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: flow-root;
+        padding: 20px;
     }
+
+    .content-fields{
+        min-width: 100%;
+    }
+
 }
 
 @media (max-width: 500px) {
+    .row{
+        padding: 30px;
+    }
 
-    .contenedor-form .btn{
-        width: 80%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .content-all-fields{
+        min-width: 10%;
+    }
+
+    .content-fields{
+        max-width: 100%;
     }
 }
