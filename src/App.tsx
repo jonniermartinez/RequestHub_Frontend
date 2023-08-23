@@ -1,7 +1,5 @@
 import { Suspense, lazy } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "./redux/store";
 import RoutesNotFound from "./utilities/RoutesNotFound";
 import { PublicRoutes, PrivateRoutes } from "@/models";
 import { AuthGuard } from "./guards";
@@ -12,8 +10,6 @@ const Private = lazy(() => import("./pages/Private/Private"));
 const Landing = lazy(() => import("./pages/Landing/Landing"));
 
 function App() {
-  const user = useSelector((state: RootState) => state.user);
-  console.log(user);
   return (
     <>
       {/* Aqui se puede hacer un componente de tipo espineer */}

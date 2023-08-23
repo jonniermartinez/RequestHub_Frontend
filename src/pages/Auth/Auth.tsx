@@ -1,8 +1,37 @@
 import { Login } from "@/components";
 import SingIn from "@/components/Sing/Singin";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { PrivateRoutes } from "@/models";
+import { client } from "@/supabase";
+import { addUser } from "@/redux/states/userSlice";
+import { useDispatch } from "react-redux";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Auth() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userState = useSelector((store: RootState) => store.user);
+
+  console.log("user ", userState);
+
+  useEffect(() => {
+    client.auth
+      .getSession()
+      .then((data) => {
+        if (data.data.session != null) {
+          console.log(data);
+          dispatch(addUser(data.data));
+          navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true });
+        }
+      })
+      .catch((error) => console.log(error));
+  }, []);
+  if (userState.data != null) {
+    navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true });
+  }
   return (
     <>
       <div className="flex gap-11">
