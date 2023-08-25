@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { client } from "@/supabase";
 function SingWithGoogle() {
   const handleClick = async () => {
-    console.log("hola");
     const { data, error } = await client.auth.signInWithOAuth({
       provider: "google",
       options: {
@@ -13,8 +12,6 @@ function SingWithGoogle() {
         },
       },
     });
-    console.log(data);
-    console.log(error);
   };
   return (
     <Button variant="outline" onClick={handleClick}>

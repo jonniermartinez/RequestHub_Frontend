@@ -1,9 +1,17 @@
 export * from "./ComponentExample";
 export * from "./Fotter";
+export { default as LogOut } from "./LogOut/LogOut";
 export { default as Login } from "./Login/Login";
-export { default as Singin } from "./Sing/Singin";
+export { default as Register } from "./Register/Register";
+export { default as SingWithGoogle } from "./SingWithGoogle/SingWithGoogle";
+export { default as imageCompo } from "./imageCompo/imageCompo";
 export * from "./index";
+export { default as pqrCompo } from "./pqrCompo/pqrCompo";
 export * from "./ui/button";
 export * from "./ui/input";
 export * from "./ui/label";
+export * from "./ui/select";
 export * from "./ui/tabs";
+export * from "./ui/toast";
+export * from "./ui/toaster";
+export * from "./ui/use-toast";

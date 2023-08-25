@@ -1,5 +1,5 @@
 import { Login } from "@/components";
-import SingIn from "@/components/Sing/Singin";
+import { Register } from "@/components";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useEffect } from "react";
@@ -56,7 +56,7 @@ export default function Auth() {
               <Login></Login>
             </TabsContent>
             <TabsContent value="password">
-              <SingIn></SingIn>
+              <Register />
             </TabsContent>
           </Tabs>
         </div>

@@ -17,7 +17,7 @@ export default function Login() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorCredentias, setErrorCredentias] = useState(true);
+  const [errorCredentias, setErrorCredentias] = useState(false);
   const { toast } = useToast();
 
   const handleSingIn = async (e: { preventDefault: () => void }) => {
@@ -99,4 +99,3 @@ export default function Login() {
 }
 // email: "test@gmail.com",
 // password: "123456",
-
