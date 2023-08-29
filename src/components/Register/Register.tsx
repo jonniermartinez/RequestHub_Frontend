@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
 import { Button, Input } from "@/components";
 import { Label } from "@/components";
+import SingWithGoogle from "@/components/SingWithGoogle/SingWithGoogle";
 import { useNavigate } from "react-router-dom";
 import {
   Dialog,
@@ -77,6 +78,7 @@ export default function Register() {
             />
           </div>
           <Button>Register</Button>
+          <SingWithGoogle />
         </form>
       </div>
       {error ? <Toaster /> : ""}
