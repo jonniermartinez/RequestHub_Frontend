@@ -1,5 +1,6 @@
 ## Guía para Contribuir a Request Hub (FRONTEND)
 
+
 ### 1. Requisitos previos:
 
 - Asegúrate de tener instalado Node.js en la versión estable 18.15 en tu PC.
