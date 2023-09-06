@@ -1,10 +1,12 @@
 export * from "./ComponentExample";
 export * from "./Fotter";
+export { default as Icono } from "./Icono/Icono";
 export { default as LogOut } from "./LogOut/LogOut";
 export { default as Login } from "./Login/Login";
+export { default as Nav } from "./Nav/Nav";
 export { default as Register } from "./Register/Register";
 export { default as SingWithGoogle } from "./SingWithGoogle/SingWithGoogle";
-export { default as ImageCompo } from "./imageCompo/ImageCompo";
+export { default as imageCompo } from "./imageCompo/imageCompo";
 export * from "./index";
 export { default as pqrCompo } from "./pqrCompo/pqrCompo";
 export * from "./ui/alert-dialog";

@@ -1,128 +1,116 @@
-import { useState } from 'react';
-
-import styled from 'styled-components'
+import { useState } from "react";
+import { Button } from "@/components";
+import "./Nav.css";
 
 function Nav() {
   const [menuItem, setMenuItem] = useState(false);
-
+  const links = [
+    {
+      to: "/",
+      label: "Features",
+    },
+    {
+      to: "/",
+      label: "Solution",
+    },
+    {
+      to: "/",
+      label: "Reviews",
+    },
+  ];
 
   function burguerclick() {
-    // desplegar menu 
-    console.log('me tocates')
-    setMenuItem(true)
+    // desplegar menu
+    setMenuItem(!menuItem);
   }
-  function burguerclose() {
-    setMenuItem(false)
-  }
+
   return (
-    <div>
-        <Navcontainer>
-          <div className='nav'>
-            <h1>Menu</h1>
-            <div className='menu'>           
-              <a href="">Usuario</a>
-              <a href="">Home</a>
-              <a href="">PQRS</a>
-              <a href="">Princing</a>                          
+    <nav className="absolute z-10 w-full border-b border-black/5 dark:border-white/5 lg:border-transparent">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
+        <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 md:gap-0 md:py-4">
+          <div className="relative z-20 flex w-full justify-between md:px-0 lg:w-max">
+            <a
+              href="/#home"
+              aria-label="logo"
+              className="flex items-center space-x-2"
+            >
+              <span className="text-2xl font-bold text-gray-900 dark:text-white">
+                RequestHub
+              </span>
+            </a>
+
+            <div className="relative flex max-h-10 items-center lg:hidden">
+              <button
+                aria-label="humburger"
+                id="hamburger"
+                className={`relative -mr-6 p-6 ${menuItem ? "toggled" : ""}`}
+                onClick={() => burguerclick()}
+              >
+                {/* toggled burguer si eesta open aparece la x */}
+                <div
+                  aria-hidden="true"
+                  id="line"
+                  className="m-auto h-0.5 w-5 rounded bg-sky-900 transition duration-300 dark:bg-gray-300"
+                ></div>
+                <div
+                  aria-hidden="true"
+                  id="line2"
+                  className="m-auto mt-2 h-0.5 w-5 rounded bg-sky-900 transition duration-300 dark:bg-gray-300"
+                ></div>
+              </button>
+            </div>
+          </div>
+          <div
+            id="navLayer"
+            aria-hidden="true"
+            className={`fixed inset-0 z-10 h-screen w-screen origin-bottom scale-y-0 bg-white/70 backdrop-blur-2xl transition duration-500 dark:bg-gray-900/70 lg:hidden ${
+              menuItem ? "origin-top scale-y-100 " : ""
+            }`}
+          ></div>
+          {/* mobile */}
+          <div
+            id="navlinks"
+            className={`invisible absolute top-full left-0 z-20 w-full origin-top-right translate-y-1 scale-90 flex-col flex-wrap justify-end gap-6 rounded-3xl border border-gray-100 bg-white p-8 opacity-0 shadow-2xl shadow-gray-600/10 transition-all duration-300 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none lg:visible lg:relative lg:flex lg:w-7/12 lg:translate-y-0 lg:scale-100 lg:flex-row lg:items-center lg:gap-0 lg:border-none lg:bg-transparent lg:p-0 lg:opacity-100 lg:shadow-none ${
+              menuItem
+                ? "!visible !scale-100 !opacity-100 !lg:translate-y-0"
+                : ""
+            } `}
+          >
+            <div className="w-full text-gray-600 dark:text-gray-200 lg:w-auto lg:pr-4 lg:pt-0">
+              <ul className="flex flex-col gap-6 tracking-wide lg:flex-row lg:gap-0 lg:text-sm">
+                {links.map((link) => (
+                  <li>
+                    <a
+                      href={link.to}
+                      className="hover:text-primary block transition dark:hover:text-white md:px-4"
+                    >
+                      <span>{link.label}</span>
+                    </a>
+                  </li>
+                ))}
+                <li>
+                  {/* <a
+                    href="https://tailus.gumroad.com/l/astls-premium"
+                    target="_blank"
+                    className="flex gap-2 font-semibold text-gray-700 transition hover:text-primary dark:text-white dark:hover:text-white md:px-4"
+                  >
+                    <span>Premium</span>
+                    <span className="flex rounded-full bg-primary/20 px-1.5 py-0.5 text-xs tracking-wider text-purple-700 dark:bg-white/10 dark:text-orange-300">
+                      {" "}
+                      new
+                    </span>
+                  </a> */}
+                </li>
+              </ul>
             </div>
 
-          <div className='burguer'  onClick={()=> burguerclick()} >
-  <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-menu-2" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#0A3143" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 6l16 0" />
-  <path d="M4 12l16 0" />
-  <path d="M4 18l16 0" />
-</svg>
+            <div className="mt-12 lg:mt-0">
+              <Button>Get Started</Button>
+            </div>
           </div>
         </div>
-          
-          <div className={`menumobile ${menuItem ? "" : "hidden"}`}>     
-          <div className='closeButton' onClick={() => burguerclose()}>
-            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-square-rounded-x" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#0A3143" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <path d="M10 10l4 4m0 -4l-4 4" />
-              <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
-            </svg>
-          </div>      
-              <a href="" className='menumobile_item'>Usuario</a>                        
-              <a href="" className='menumobile_item'>Home</a>                        
-              <a href="" className='menumobile_item'>PQRS</a>                        
-              <a href="" className='menumobile_item'>Princing</a>                        
-         </div>          
-       </Navcontainer>
-       <h2>holasdasd</h2>
-    </div>
-    
-  )
+      </div>
+    </nav>
+  );
 }
 export default Nav;
-
-const Navcontainer = styled.nav`
-h1{
-  color: black;
-  font-weight: 400;
-}
-
-.nav {
-padding: 1rem;
-background-color:#efefef;
-display: flex;
-aling-items: center;
-justify-content: space-between;
-}
-
-a{
-  color: black;
-  text-decoration: none;
-  margin-right: 1rem;
-}
-
-.burguer{
-  @media(min-width: 768px){
-    display: none;
-  }
-}
-.menu{
-  @media(max-width: 768px){
-    display: none;
-  }
-}
-
-.menumobile{
-  @media(min-width: 768px){
-    display: none;
-  }
-  background-color:#efefef;
-  position: absolute;
-  top: 0px;
-  right: 0;
-  width: 250px;
-  padding-top: 60px;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.menumobile_item { 
-  padding: 1rem;
-
-}
-
-.menumobile_item:hover{
-  background-color:#CECFC9;
-
-}
-.hidden{
-  display: none;
-}
-.closeButton{
-  cursor: pointer;
-  position: absolute;
-  top: 20px;
-  right: 20px;
-}
-
-`
