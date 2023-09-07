@@ -10,6 +10,7 @@ import { addUser } from "@/redux/states/userSlice";
 import { useDispatch } from "react-redux";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ImageCompo } from "@/components";
+import { Container } from "@/components";
 
 export default function Auth() {
   const navigate = useNavigate();

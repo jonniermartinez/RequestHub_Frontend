@@ -1,12 +1,17 @@
 export * from "./ComponentExample";
+export { default as Container } from "./Container/Container";
+export { default as FeatureMessage } from "./FeatureMessage/FeatureMessage";
+export { default as Features } from "./Features/Features";
 export * from "./Fotter";
+export * from "./Hero/Hero";
 export { default as Icono } from "./Icono/Icono";
 export { default as LogOut } from "./LogOut/LogOut";
 export { default as Login } from "./Login/Login";
 export { default as Nav } from "./Nav/Nav";
 export { default as Register } from "./Register/Register";
 export { default as SingWithGoogle } from "./SingWithGoogle/SingWithGoogle";
-export { default as imageCompo } from "./imageCompo/imageCompo";
+export { default as Testimonios } from "./Testimonios/Testimonios";
+export { default as ImageCompo } from "./imageCompo/ImageCompo";
 export * from "./index";
 export { default as pqrCompo } from "./pqrCompo/pqrCompo";
 export * from "./ui/alert-dialog";
