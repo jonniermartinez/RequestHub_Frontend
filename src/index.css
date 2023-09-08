@@ -57,3 +57,16 @@
     @apply bg-background text-foreground;
   }
 }
+@layer components {
+  .blinking-cursor:after {
+    content: "|";
+    @apply text-primary/20;
+    animation: blink step-start 0.5s infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+}
