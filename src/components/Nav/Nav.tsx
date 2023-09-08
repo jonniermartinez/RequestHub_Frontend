@@ -7,15 +7,15 @@ function Nav() {
   const [menuItem, setMenuItem] = useState(false);
   const links = [
     {
-      to: "/",
+      to: "#features",
       label: "Features",
     },
     {
-      to: "/",
-      label: "Solution",
+      to: "/pricing",
+      label: "Pricing",
     },
     {
-      to: "/",
+      to: "#reviews",
       label: "Reviews",
     },
   ];
@@ -30,11 +30,7 @@ function Nav() {
       <Container>
         <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 md:gap-0 md:py-4">
           <div className="relative z-20 flex w-full justify-between md:px-0 lg:w-max">
-            <a
-              href="/"
-              aria-label="logo"
-              className="flex items-center space-x-2"
-            >
+            <a aria-label="logo" className="flex items-center space-x-2">
               <span className="text-2xl font-bold text-gray-900 dark:text-white">
                 RequestHub
               </span>
@@ -106,7 +102,9 @@ function Nav() {
             </div>
 
             <div className="mt-12 lg:mt-0">
-              <Button>Get Started</Button>
+              <a href="login">
+                <Button size="lg">Get started</Button>
+              </a>
             </div>
           </div>
         </div>
