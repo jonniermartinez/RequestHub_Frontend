@@ -45,17 +45,17 @@ function Features() {
       </div>
       <div className="mt-16 grid divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl border border-gray-100 text-gray-600 dark:border-gray-700 sm:grid-cols-2 lg:grid-cols-4 lg:divide-y-0 xl:grid-cols-4">
         <Feature
-          img="https://cdn-icons-png.flaticon.com/512/4341/4341139.png"
+          img="https://res-console.cloudinary.com/dtd4ibgoz/thumbnails/v1/image/upload/v1694141884/bW9uaXRvcmluZ19qOWNwbnc=/grid_landscape"
           title="Advanced Analytics Dashboard"
           description="Gain a comprehensive, real-time view of your key data all in one place. "
         ></Feature>
         <Feature
-          img="https://cdn-icons-png.flaticon.com/512/4341/4341134.png"
+          img="https://res-console.cloudinary.com/dtd4ibgoz/thumbnails/v1/image/upload/v1694141866/dmVyaWZpZWRfZ3p2cHp1/grid_landscape"
           title="Automated QCR Management"
           description="Simplify QCR management with our platform. Record, organize, and efficiently respond to customer questions, complaints, and requests. Maintain a complete history for exceptional customer service."
         ></Feature>
         <Feature
-          img="https://cdn-icons-png.flaticon.com/512/4341/4341160.png"
+          img="https://res-console.cloudinary.com/dtd4ibgoz/thumbnails/v1/image/upload/v1694141858/Y29tcGxldGVkLWZvcm1fZnpzNDNo/grid_landscape"
           title="User-Friendly Ready-Made Form"
           description="Our software includes a user-friendly, ready-made form that's designed for quick and straightforward use. It's pre-configured to efficiently collect essential information without the need for extensive customization."
         ></Feature>
