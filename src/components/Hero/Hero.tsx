@@ -17,7 +17,8 @@ export function Hero() {
             <div className="lg:w-2/3 text-center mx-auto">
               <h1 className="text-gray-900 dark:text-white font-bold text-5xl md:text-6xl xl:text-7xl">
                 The new way to manage{" "}
-                <span className="text-primary dark:text-white">requests.</span>
+                <span className="text-primary dark:text-white">Claims</span> of
+                you bussines
               </h1>
               <p className="mt-8 text-gray-700 dark:text-gray-300">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
