@@ -7,14 +7,23 @@ interface Image {
   }
 
 const ImageCompo: React.FC<Image> = ({ texto, url }) => {
+
+	const imageStyle = {
+		backgroundImage: `url(${url})`,
+	};
+
 	return (
 		<>
-			{/* <div className="col-md-6 image contenedor-imageCompo"> */}
 			<div className="w-1/2 image contenedor-imageCompo">
-				<img
+				<div className='imagenCompo'
+				 style={imageStyle}/>
+
+				{/* <img
 					className='imagenCompo'
-					src={url}
-					alt={`Foto de ${texto}`} />
+					src={url} 
+					style={imageStyle}
+					alt={`Foto de ${texto}`} 
+				/> */}
 				<label className="texto">{texto}</label>
 			</div>
 		</>
