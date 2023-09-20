@@ -5,14 +5,13 @@ import "./index.css";
 // import { Login } from "./components";
 import store from "./redux/store.ts";
 import { Provider } from "react-redux";
-import PQRCompo from "./components/pqrCompo/pqrCompo";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
-    <PQRCompo empresa="Sara SAS" />
+    {/* <PQRCompo empresa="Sara SAS" /> */}
     {/* <Login /> */}
   </React.StrictMode>
 );

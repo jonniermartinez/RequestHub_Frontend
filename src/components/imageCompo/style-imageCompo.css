@@ -1,27 +1,28 @@
 /* IMAGEN X */
-.imagenCompo{
-    filter:brightness(0.5);
-    height: 100%;
-    min-width: 85%;
-    background-size: cover;
+.imagenCompo {
+  filter: brightness(0.5);
+  height: 100vh;
+  width: 100%;
+  border: 2px solid pink;
+  background-size: cover;
 }
 
-.texto{
-    position: fixed;
-    color: white;
-    bottom: 5%;
-    left: 34%;
-    font-family: 'Inter', sans-serif;
-    font-weight: bold;
-    /* transform: translate(-65%, 100%); */
+.texto {
+  position: fixed;
+  color: red;
+  bottom: 5%;
+  left: 34%;
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  /* transform: translate(-65%, 100%); */
 }
 
 @media (max-width: 1080px) {
-    .imagenCompo{
-        display: none;
-    }
+  .imagenCompo {
+    display: none;
+  }
 
-    .texto{
-        display: none;
-    }
+  .texto {
+    display: none;
+  }
 }

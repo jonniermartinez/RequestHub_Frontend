@@ -171,7 +171,7 @@ const PQRCompo: React.FC<IProps> = ({ empresa }) => {
       <div className="row">
         <ImageCompo
           texto="RequestHub"
-          url="src/components/imageCompo/img/img_pqr_all.svg"
+          url="https://freecodecamp.org/news/content/images/size/w2000/2022/02/arrows-2889040_1920.jpg"
         />
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm content-all-fields">
           <form noValidate onSubmit={handleSubmit}>
@@ -180,118 +180,122 @@ const PQRCompo: React.FC<IProps> = ({ empresa }) => {
                 PQR
               </h2>
             </div>
-            <p className="mt-6 text-base leading-7 text-gray-500 small-text">
+            {/* <p className="mt-6 text-base leading-7 text-gray-500 small-text">
               Estas a punto de llenar una pqr para la empresa {empresa}
-            </p>
-            <div className="content-fields">
-              <div className="flex items-center justify-between">
-                <label className="block text-sm font-medium leading-6 text-gray-900">
-                  Name
-                </label>
+            </p> */}
+            <div className="flex gap-3 flex-wrap lg:flex-nowrap">
+              <div className="content-fields">
+                <div className="flex items-center justify-between">
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
+                    Name
+                  </label>
+                </div>
+                <div className="mt-2">
+                  <input
+                    onChange={(e) => updateForm({ name: e.target.value })}
+                    value={formData.name}
+                    placeholder="Name"
+                    id="name"
+                    name="name"
+                    type="text"
+                    required
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-5| focus:ring-inset sm:text-sm sm:leading-6 field"
+                  />
+                  {errors?.name && (
+                    <Alert variant="destructive">
+                      <AlertCircle className="h-4 w-4" />
+                      <AlertDescription>
+                        Error in the Name field.
+                      </AlertDescription>
+                    </Alert>
+                  )}
+                </div>
               </div>
-              <div className="mt-2">
-                <input
-                  onChange={(e) => updateForm({ name: e.target.value })}
-                  value={formData.name}
-                  placeholder="Name"
-                  id="name"
-                  name="name"
-                  type="text"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-5| focus:ring-inset sm:text-sm sm:leading-6 field"
-                />
-                {errors?.name && (
-                  <Alert variant="destructive">
-                    <AlertCircle className="h-4 w-4" />
-                    <AlertDescription>
-                      Error in the Name field.
-                    </AlertDescription>
-                  </Alert>
-                )}
+
+              <div className="content-fields">
+                <div className="flex items-center justify-between">
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
+                    Last Name
+                  </label>
+                </div>
+                <div className="mt-2">
+                  <input
+                    onChange={(e) => updateForm({ lastName: e.target.value })}
+                    value={formData.lastName}
+                    placeholder="Last Name"
+                    id="LastName"
+                    name="LastName"
+                    type="text"
+                    required
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-5 focus:ring-inset sm:text-sm sm:leading-6 field"
+                  />
+                  {errors?.lastName && (
+                    <Alert variant="destructive">
+                      <AlertCircle className="h-4 w-4" />
+                      <AlertDescription>
+                        Error in the Lastname field.
+                      </AlertDescription>
+                    </Alert>
+                  )}
+                </div>
               </div>
             </div>
 
-            <div className="content-fields">
-              <div className="flex items-center justify-between">
-                <label className="block text-sm font-medium leading-6 text-gray-900">
-                  Last Name
-                </label>
+            <div className="flex gap-3 flex-wrap lg:flex-nowrap">
+              <div className="content-fields">
+                <div className="flex items-center justify-between">
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
+                    Phone
+                  </label>
+                </div>
+                <div className="mt-2">
+                  <input
+                    onChange={(e) => updateForm({ phone: e.target.value })}
+                    value={formData.phone}
+                    placeholder="Phone"
+                    id="Phone"
+                    name="Phone"
+                    type="tel"
+                    required
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-5 focus:ring-inset sm:text-sm sm:leading-6 field"
+                  />
+                  {errors?.phone && (
+                    <Alert variant="destructive">
+                      <AlertCircle className="h-4 w-4" />
+                      <AlertDescription>
+                        Error in the Phone field.
+                      </AlertDescription>
+                    </Alert>
+                  )}
+                </div>
               </div>
-              <div className="mt-2">
-                <input
-                  onChange={(e) => updateForm({ lastName: e.target.value })}
-                  value={formData.lastName}
-                  placeholder="Last Name"
-                  id="LastName"
-                  name="LastName"
-                  type="text"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-5 focus:ring-inset sm:text-sm sm:leading-6 field"
-                />
-                {errors?.lastName && (
-                  <Alert variant="destructive">
-                    <AlertCircle className="h-4 w-4" />
-                    <AlertDescription>
-                      Error in the Lastname field.
-                    </AlertDescription>
-                  </Alert>
-                )}
-              </div>
-            </div>
 
-            <div className="content-fields">
-              <div className="flex items-center justify-between">
-                <label className="block text-sm font-medium leading-6 text-gray-900">
-                  Phone
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  onChange={(e) => updateForm({ phone: e.target.value })}
-                  value={formData.phone}
-                  placeholder="Phone"
-                  id="Phone"
-                  name="Phone"
-                  type="tel"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-5 focus:ring-inset sm:text-sm sm:leading-6 field"
-                />
-                {errors?.phone && (
-                  <Alert variant="destructive">
-                    <AlertCircle className="h-4 w-4" />
-                    <AlertDescription>
-                      Error in the Phone field.
-                    </AlertDescription>
-                  </Alert>
-                )}
-              </div>
-            </div>
-
-            <div className="content-fields">
-              <div className="flex items-center justify-between">
-                <label className="block text-sm font-medium leading-6 text-gray-900">
-                  Email
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  onChange={(e) => updateForm({ email: e.target.value })}
-                  value={formData.email}
-                  placeholder="Email"
-                  id="Email"
-                  name="Email"
-                  type="email"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-5 focus:ring-inset sm:text-sm sm:leading-6 field"
-                />
-                {errors?.email && (
-                  <Alert variant="destructive">
-                    <AlertCircle className="h-4 w-4" />
-                    <AlertDescription>
-                      Error in the Email field.
-                    </AlertDescription>
-                  </Alert>
-                )}
+              <div className="content-fields">
+                <div className="flex items-center justify-between">
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
+                    Email
+                  </label>
+                </div>
+                <div className="mt-2">
+                  <input
+                    onChange={(e) => updateForm({ email: e.target.value })}
+                    value={formData.email}
+                    placeholder="Email"
+                    id="Email"
+                    name="Email"
+                    type="email"
+                    required
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-5 focus:ring-inset sm:text-sm sm:leading-6 field"
+                  />
+                  {errors?.email && (
+                    <Alert variant="destructive">
+                      <AlertCircle className="h-4 w-4" />
+                      <AlertDescription>
+                        Error in the Email field.
+                      </AlertDescription>
+                    </Alert>
+                  )}
+                </div>
               </div>
             </div>
 

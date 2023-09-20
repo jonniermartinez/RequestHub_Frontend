@@ -8,6 +8,7 @@ import { AuthGuard } from "./guards";
 const Auth = lazy(() => import("./pages/Auth/Auth"));
 const Private = lazy(() => import("./pages/Private/Private"));
 const Landing = lazy(() => import("./pages/Landing/Landing"));
+const Pqr = lazy(() => import("./pages/Pqr/Pqr"));
 
 function App() {
   return (
@@ -18,8 +19,9 @@ function App() {
           <RoutesNotFound>
             {/* RUTAS PUBLICAS */}
             <Route path="/" element={<Landing />} />
+            <Route path={`${PublicRoutes.PQR}/:id`} element={<Pqr />} />
             <Route path={PublicRoutes.AUTH} element={<Auth />} />
-            {/* RUTAS PRIVADAS protejer*/}
+            {/* RUTAS PRIVADAS protejer */}
             <Route element={<AuthGuard />}>
               <Route path={PrivateRoutes.PRIVATE} element={<Private />} />
             </Route>
