@@ -1,5 +1,5 @@
 import { Login } from "@/components";
-import SingIn from "@/components/Sing/Singin";
+import { Register } from "@/components";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useEffect } from "react";
@@ -9,6 +9,8 @@ import { client } from "@/supabase";
 import { addUser } from "@/redux/states/userSlice";
 import { useDispatch } from "react-redux";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ImageCompo } from "@/components";
+import { Container } from "@/components";
 
 export default function Auth() {
   const navigate = useNavigate();
@@ -37,10 +39,9 @@ export default function Auth() {
       <div className="flex gap-11">
         <div className=" w-5/12">
           {/* Sara aqui va tu compoente image */}
-          <img
-            src="https://res.cloudinary.com/dtd4ibgoz/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1692828667/prompthero-prompt-dba1357865c_bfs7ro.jpg?_s=public-apps"
-            alt=""
-            className=" max-h-screen w-full object-scale-contain"
+          <ImageCompo
+            texto="RequestHub"
+            url="https://res.cloudinary.com/dtd4ibgoz/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1692828667/prompthero-prompt-dba1357865c_bfs7ro.jpg?_s=public-apps"
           />
         </div>
         <div className="flex w-1/2 justify-center">
@@ -50,13 +51,13 @@ export default function Auth() {
           >
             <TabsList className=" w-fit">
               <TabsTrigger value="account">Login</TabsTrigger>
-              <TabsTrigger value="password">SingIn</TabsTrigger>
+              <TabsTrigger value="password">Register</TabsTrigger>
             </TabsList>
             <TabsContent value="account" className="">
               <Login></Login>
             </TabsContent>
             <TabsContent value="password">
-              <SingIn></SingIn>
+              <Register />
             </TabsContent>
           </Tabs>
         </div>

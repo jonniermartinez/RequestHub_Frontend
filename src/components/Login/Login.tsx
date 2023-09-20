@@ -17,7 +17,7 @@ export default function Login() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorCredentias, setErrorCredentias] = useState(true);
+  const [errorCredentias, setErrorCredentias] = useState(false);
   const { toast } = useToast();
 
   const handleSingIn = async (e: { preventDefault: () => void }) => {
@@ -76,7 +76,7 @@ export default function Login() {
             <div className="w-full flex items-center justify-between">
               <Label htmlFor="password">Password</Label>
               <p className=" text-right cursor-pointer pb-1 text-sm text-muted-foreground">
-                Forgot Password
+                {/* Forgot Password */} .
                 {/* The dialog Componente to send email changin the password  */}
               </p>
             </div>
@@ -99,4 +99,3 @@ export default function Login() {
 }
 // email: "test@gmail.com",
 // password: "123456",
-
