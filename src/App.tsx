@@ -1,10 +1,31 @@
-import "./App.css";
-import { Button } from "./components/ui/button";
+import { Suspense, lazy } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import RoutesNotFound from "./utilities/RoutesNotFound";
+import { PublicRoutes, PrivateRoutes } from "@/models";
+import { AuthGuard } from "./guards";
+
+// Pages
+const Auth = lazy(() => import("./pages/Auth/Auth"));
+const Private = lazy(() => import("./pages/Private/Private"));
+const Landing = lazy(() => import("./pages/Landing/Landing"));
 
 function App() {
   return (
     <>
-      <Button>shadcn library ready </Button>
+      {/* Aqui se puede hacer un componente de tipo espineer */}
+      <Suspense fallback={<>Cargando</>}>
+        <BrowserRouter>
+          <RoutesNotFound>
+            {/* RUTAS PUBLICAS */}
+            <Route path="/" element={<Landing />} />
+            <Route path={PublicRoutes.AUTH} element={<Auth />} />
+            {/* RUTAS PRIVADAS protejer*/}
+            <Route element={<AuthGuard />}>
+              <Route path={PrivateRoutes.PRIVATE} element={<Private />} />
+            </Route>
+          </RoutesNotFound>
+        </BrowserRouter>
+      </Suspense>
     </>
   );
 }

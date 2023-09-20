@@ -19,6 +19,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "useUnknownInCatchVariables": false,
 
     /* resolver paths without error */
     "baseUrl": ".",
