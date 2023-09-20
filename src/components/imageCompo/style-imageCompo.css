@@ -3,13 +3,14 @@
     filter:brightness(0.5);
     height: 100%;
     min-width: 85%;
+    background-size: cover;
 }
 
 .texto{
     position: fixed;
     color: white;
     bottom: 5%;
-    left: 29%;
+    left: 34%;
     font-family: 'Inter', sans-serif;
     font-weight: bold;
     /* transform: translate(-65%, 100%); */
