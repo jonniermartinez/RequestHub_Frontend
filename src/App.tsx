@@ -13,7 +13,6 @@ const Pqr = lazy(() => import("./pages/Pqr/Pqr"));
 function App() {
   return (
     <>
-      {/* Aqui se puede hacer un componente de tipo espineer */}
       <Suspense fallback={<>Cargando</>}>
         <BrowserRouter>
           <RoutesNotFound>

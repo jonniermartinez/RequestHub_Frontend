@@ -2,14 +2,19 @@ import * as React from "react";
 import ImageCompo from "../imageCompo/ImageCompo.tsx";
 import "./style-pqrCompo.css";
 import { client } from "@/supabase";
-import { AlertCircle, Divide } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 import { useForm, string } from "react-form-ease";
 import { useState, useEffect } from "react";
+
+interface Props {
+  empresa: string;
+}
 
 // ALERT
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
-const PQRCompo: React.FC<IProps> = ({ empresa }) => {
+const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
+  empresa;
   // VALIDACIONES
   const { formData, updateForm, validateForm, errors } = useForm({
     data: {
