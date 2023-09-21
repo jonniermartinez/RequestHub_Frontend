@@ -1,6 +1,5 @@
 import { Button } from "..";
 import { Container } from "..";
-import { Redirect } from "react-router-dom";
 
 export function Hero() {
   return (

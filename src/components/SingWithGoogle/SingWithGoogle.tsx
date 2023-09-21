@@ -12,6 +12,7 @@ function SingWithGoogle() {
         },
       },
     });
+    data ? console.log(data) : console.log(error);
   };
   return (
     <Button variant="outline" onClick={handleClick}>
