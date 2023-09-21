@@ -11,6 +11,7 @@ export { default as Nav } from "./Nav/Nav";
 export { default as Register } from "./Register/Register";
 export { default as SingWithGoogle } from "./SingWithGoogle/SingWithGoogle";
 export { default as Testimonios } from "./Testimonios/Testimonios";
+export { default as ImageCompo } from "./ImageCompo/ImageCompo";
 export * from "./index";
 export { default as pqrCompo } from "./pqrCompo/pqrCompo";
 export * from "./ui/alert-dialog";
