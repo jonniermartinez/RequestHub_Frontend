@@ -1,5 +1,5 @@
 import * as React from "react";
-import ImageCompo from "../ImageCompo/ImageCompo.tsx";
+import ImageCompo from "../ImageCompo/ImageCompo";
 import "./style-pqrCompo.css";
 import { client } from "@/supabase";
 import { AlertCircle } from "lucide-react";
@@ -84,7 +84,7 @@ const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
       const { error } = await client
         .from("pqr_form")
         .insert({
-          pqr_type: formData.type,
+          pqr_type: formData.pqrType,
           subject: formData.subject,
           message: formData.message,
         })
