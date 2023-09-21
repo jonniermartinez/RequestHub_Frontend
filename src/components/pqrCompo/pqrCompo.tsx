@@ -1,5 +1,4 @@
 import * as React from "react";
-import ImageCompo from "../ImageCompo/ImageCompo.tsx";
 import "./style-pqrCompo.css";
 import { client } from "@/supabase";
 import { AlertCircle } from "lucide-react";
@@ -84,7 +83,7 @@ const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
       const { error } = await client
         .from("pqr_form")
         .insert({
-          pqr_type: formData.type,
+          pqr_type: formData.pqrType,
           subject: formData.subject,
           message: formData.message,
         })
@@ -174,10 +173,10 @@ const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
       </div>
 
       <div className="row">
-        <ImageCompo
+        {/* <ImageCompo
           texto="RequestHub"
           url="https://freecodecamp.org/news/content/images/size/w2000/2022/02/arrows-2889040_1920.jpg"
-        />
+        /> */}
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm content-all-fields">
           <form noValidate onSubmit={handleSubmit}>
             <div className="content-fields pqr">
