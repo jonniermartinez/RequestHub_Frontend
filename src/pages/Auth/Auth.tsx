@@ -9,7 +9,7 @@ import { client } from "@/supabase";
 import { addUser } from "@/redux/states/userSlice";
 import { useDispatch } from "react-redux";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ImageCompo from "../../components/ImageCompo/ImageCompo";
+import { ImageCompo } from "../../components/ImageCompo/ImageCompo";
 
 export default function Auth() {
   const navigate = useNavigate();

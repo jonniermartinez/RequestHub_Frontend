@@ -1,5 +1,5 @@
 import * as React from "react";
-import ImageCompo from "../ImageCompo/ImageCompo";
+import { ImageCompo } from "../ImageCompo/ImageCompo";
 import "./style-pqrCompo.css";
 import { client } from "@/supabase";
 import { AlertCircle } from "lucide-react";
