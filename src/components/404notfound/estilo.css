@@ -1,0 +1,49 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+h1{
+    font-size: 15rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: 700;
+    -webkit-background-clip: text;/* para meter la imagen en las letras*/
+    -webkit-text-fill-color: transparent; 
+    background-image:url(../img/espacio.png);
+    background-size: cover;
+    background-position: top;
+}
+
+.texto-principal{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.contenedor-final{  
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 400;   
+}
+
+.contenedor-final a{
+    color: #fff;
+    text-align: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #0e46e0; 
+    border-radius: 5px; 
+    padding: 10px 25px; /* esto es para q se haga el borde del boton */
+    text-decoration: none;
+       
+}
+
+.contenedor-final a:hover{
+    background-color:#276e90;
+}
