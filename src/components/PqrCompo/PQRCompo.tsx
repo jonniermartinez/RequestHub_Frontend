@@ -4,6 +4,7 @@ import { client } from "@/supabase";
 import { AlertCircle } from "lucide-react";
 import { useForm, string } from "react-form-ease";
 import { useState, useEffect } from "react";
+import { ImageCompo } from "@/components";
 
 interface Props {
   empresa: string;
@@ -173,10 +174,10 @@ const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
       </div>
 
       <div className="row">
-        {/* <ImageCompo
+        <ImageCompo
           texto="RequestHub"
           url="https://freecodecamp.org/news/content/images/size/w2000/2022/02/arrows-2889040_1920.jpg"
-        /> */}
+        />
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm content-all-fields">
           <form noValidate onSubmit={handleSubmit}>
             <div className="content-fields pqr">

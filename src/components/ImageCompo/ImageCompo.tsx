@@ -1,10 +1,12 @@
 import * as React from "react";
-import "../imageCompo/style-imageCompo.css";
+import "./style.css";
 
 interface Image {
   texto: string;
   url: string;
 }
+
+// refactorizar
 
 const ImageCompo: React.FC<Image> = ({ texto, url }) => {
   const imageStyle = {
