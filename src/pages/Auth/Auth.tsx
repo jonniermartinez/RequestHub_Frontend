@@ -36,13 +36,11 @@ export default function Auth() {
   return (
     <>
       <div className="flex gap-11">
-        <div className=" w-5/12">
-          {/* Sara aqui va tu compoente image */}
-          <ImageCompo
-            texto="RequestHub"
-            url="https://res.cloudinary.com/dtd4ibgoz/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1692828667/prompthero-prompt-dba1357865c_bfs7ro.jpg?_s=public-apps"
-          />
-        </div>
+        {/* Sara aqui va tu compoente image */}
+        <ImageCompo
+          texto="RequestHub"
+          url="https://res.cloudinary.com/dtd4ibgoz/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1692828667/prompthero-prompt-dba1357865c_bfs7ro.jpg?_s=public-apps"
+        />
         <div className="flex w-1/2 justify-center">
           <Tabs
             defaultValue="account"
