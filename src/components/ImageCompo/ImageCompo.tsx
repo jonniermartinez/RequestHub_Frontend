@@ -15,15 +15,16 @@ const ImageCompo: React.FC<Image> = ({ texto, url }) => {
 
   return (
     <>
-      <div className="w-1/2 image contenedor-imageCompo">
+      <div className="image contenedor-imageCompo">
         <div className="imagenCompo" style={imageStyle} />
-
-        {/* <img
+      {/* <div>
+        <img
 					className='imagenCompo'
 					src={url} 
 					style={imageStyle}
 					alt={`Foto de ${texto}`} 
-				/> */}
+          />
+      </div> */}
         <label className="texto">{texto}</label>
       </div>
     </>

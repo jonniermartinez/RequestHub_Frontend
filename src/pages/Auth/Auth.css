@@ -1,0 +1,22 @@
+.login-all{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-con{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 1080px) {
+    .login-all{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
