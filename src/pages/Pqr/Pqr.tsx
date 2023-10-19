@@ -5,7 +5,7 @@ function Pqr() {
   const { id } = useParams();
   console.log(id);
   return <div>
-    <PQRCompo empresa="Jonnier"></PQRCompo>
+    <PQRCompo empresa="Jonnier" profileId={id}></PQRCompo>
   </div>;
 }
 export default Pqr;

@@ -8,13 +8,15 @@ import { ImageCompo } from "@/components";
 
 interface Props {
   empresa: string;
+  profileId: string | undefined
 }
 
 // ALERT
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
-const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
+const PQRCompo = ({ empresa, profileId }: Props) => {
   empresa;
+
   // VALIDACIONES
   const { formData, updateForm, validateForm, errors } = useForm({
     data: {
@@ -48,7 +50,7 @@ const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
       return;
     } else {
       createPqr();
-       formData.sucess = true;
+      formData.sucess = true;
       // alert('¡Datos guardados exitosamente!');
     }
   };
@@ -80,7 +82,7 @@ const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
       console.log(error.message);
     }
     try {
-      console.log('Categoria ID: ',formData.pqrType);
+      console.log('Categoria ID: ', formData.pqrType);
       // insertar en pqr form
       const { error, data } = await client
         .from("pqr_form")
@@ -88,50 +90,51 @@ const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
           subject: formData.subject,
           message: formData.message,
           pqr_type: formData.pqrType,
+          id_profile: profileId,
           state: 'Abierto',
         })
         .single();
-        console.log(data);
+      console.log(data);
       if (error) throw error;
-        // window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.log(error.message);
     }
   }
 
   // SELECT A LA DB
-const [pqrTypes, setPqrTypes] = useState<{ id: number; category: string }[]>([]);
+  const [pqrTypes, setPqrTypes] = useState<{ id: number; category: string }[]>([]);
 
-useEffect(() => {
-  const fetchPqrTypes = async () => {
-    try {
-      const { data, error } = await client
-        .from("category")
-        .select("category, id");
+  useEffect(() => {
+    const fetchPqrTypes = async () => {
+      try {
+        const { data, error } = await client
+          .from("category")
+          .select("category, id");
 
-      if (error) {
-        console.error(error);
+        if (error) {
+          console.error(error);
+        }
+        if (data) {
+          console.log("DATA:", data);
+          // Store both category and id in the state
+          setPqrTypes(data);
+          console.log("TYPENAMES: ", data);
+        }
+      } catch (error) {
+        alert(error.message);
       }
-      if (data) {
-        console.log("DATA:", data);
-        // Store both category and id in the state
-        setPqrTypes(data);
-        console.log("TYPENAMES: ", data);
-      }
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+    };
 
-  // trae los tipos de la db
-  fetchPqrTypes();
-}, []);
+    // trae los tipos de la db
+    fetchPqrTypes();
+  }, []);
 
   //MOSTRAR ALERT POR CIERTO TIEMPO
   const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
-    console.log('Sucess: ',formData.sucess);
+    console.log('Sucess: ', formData.sucess);
     if (formData.sucess) {
       // Mostrar la alerta
       setShowAlert(true);
@@ -145,8 +148,6 @@ useEffect(() => {
       return () => clearTimeout(timeout);
     }
   }, [formData.sucess]);
-
-  // ----------------------------------
 
   return (
     <>
@@ -314,8 +315,8 @@ useEffect(() => {
                   PQR Type
                 </option>
                 {pqrTypes.map((type) => (
-                <option key={type.id} value={type.id}>
-                  {type.category}
+                  <option key={type.id} value={type.id}>
+                    {type.category}
                   </option>
                 ))}
               </select>
