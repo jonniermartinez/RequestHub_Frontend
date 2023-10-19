@@ -8,13 +8,16 @@ import { ImageCompo } from "@/components";
 
 interface Props {
   empresa: string;
+  profileId: string | undefined
 }
 
 // ALERT
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
-const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
+const PQRCompo = ({ empresa, profileId }: Props) => {
   empresa;
+
+
   // VALIDACIONES
   const { formData, updateForm, validateForm, errors } = useForm({
     data: {
@@ -63,65 +66,84 @@ const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
     // inserta en la tabla pqrForm
     try {
       // insertar en la tabla pqrOwer
-      const { error, data } = await client
-        .from("pqr_owner")
-        .insert({
-          name: formData.name,
-          lastName: formData.lastName,
-          phone: formData.phone,
-          email: formData.email,
-        })
-        .select();
-      // guardar el id en una variable y mandarlo en el inser pqr form
-      console.log(data);
 
-      if (error) throw error;
-    } catch (error) {
-      console.log(error.message);
-    }
-    try {
-      // insertar en pqr form
-      const { error } = await client
+      const { data: ownerData, error: ownerError } = await client
+        .from("pqr_owner")
+        .select("id")
+        .eq("email", formData.email);
+
+      if (ownerError) throw ownerError;
+
+      let ownerId;
+
+      if (ownerData.length > 0) {
+        // Si el correo existe, obtener el ID
+        ownerId = ownerData[0].id;
+      } else {
+        // Si el correo no existe, insertar en la tabla pqr_owner
+
+        const { error, data } = await client
+          .from("pqr_owner")
+          .insert({
+            name: formData.name,
+            lastName: formData.lastName,
+            phone: formData.phone,
+            email: formData.email,
+          })
+          .select("id");
+        // guardar el id en una variable y mandarlo en el inser pqr form
+        // console.log(data);
+
+        if (error) throw error;
+        ownerId = data[0].id;
+      }
+
+      const { error: formError } = await client
         .from("pqr_form")
         .insert({
-          pqr_type: formData.pqrType,
           subject: formData.subject,
           message: formData.message,
+          pqr_type: formData.pqrType,
+          id_profile: profileId,
+          state: "Abierto",
+          pqr_owner: ownerId,
         })
         .single();
 
-      if (error) throw error;
-      //   window.location.reload();
+      // console.log(data);
+      if (formError) throw formError;
+      // window.location.reload();
+      // console.log("FormData: ", formData);
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     }
+
   }
 
-  //  SELECT A LA DB
-  const [pqrTypes, setPqrTypes] = useState<string[]>([]);
-  // const [formDat, setFormData] = useState({ pqrType: '' });
+  // SELECT A LA DB
+  const [pqrTypes, setPqrTypes] = useState<{ id: number; category: string }[]>([]);
 
   useEffect(() => {
     const fetchPqrTypes = async () => {
       try {
         const { data, error } = await client
           .from("category")
-          .select("category");
+          .select("category, id");
 
         if (error) {
           console.error(error);
         }
         if (data) {
-          console.log("DATA:", data);
-          // Extrae los nombres de los tipos de PQR de los datos y almacénalos en el estado
-          const typeNames = data?.map((row: any) => row.category);
-          setPqrTypes(typeNames);
-          console.log("TYPENAMES: ", typeNames);
+          //console.log("DATA:", data);
+          // Store both category and id in the state
+          setPqrTypes(data);
+          // console.log("TYPENAMES: ", data);
         }
       } catch (error) {
         alert(error.message);
       }
     };
+
     // trae los tipos de la db
     fetchPqrTypes();
   }, []);
@@ -130,6 +152,7 @@ const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
   const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
+    // console.log('Sucess: ', formData.sucess);
     if (formData.sucess) {
       // Mostrar la alerta
       setShowAlert(true);
@@ -144,8 +167,6 @@ const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
     }
   }, [formData.sucess]);
 
-  // ----------------------------------
-
   return (
     <>
       <div className="pqr-success">
@@ -153,18 +174,16 @@ const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
           <Alert className="alert-sucess" variant="default">
             <AlertCircle className="h-0 w-4" />
             <svg
-              xmlns="http://www.w3.org/2000/svg"
               fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
+              viewBox="0 2 24 24"
+              strokeWidth="1.5"
               stroke="currentColor"
-              aria-hidden="true"
-              className="icon-success h-5 w-14 oc se axw"
+              className="icon-success h-5 w-14"
             >
               <path
-                stroke-linecap="round"
+                strokeLinecap="round"
                 className="icon-color"
-                stroke-linejoin="round"
+                strokeLinejoin="round"
                 d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               ></path>
             </svg>
@@ -176,10 +195,10 @@ const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
       <div className="row">
         <ImageCompo
           texto="RequestHub"
-          url="https://freecodecamp.org/news/content/images/size/w2000/2022/02/arrows-2889040_1920.jpg"
+          url="https://img.freepik.com/premium-photo/software-programming-concept-mobile-app-developer-coding-language-development-purple-background-statistic-user-interface-system-minimal-cartoon-3d-render-illustration_598821-1150.jpg?w=740"
         />
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm content-all-fields">
-          <form noValidate onSubmit={handleSubmit}>
+          <form noValidate onSubmit={handleSubmit} className="form-content">
             <div className="content-fields pqr">
               <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 text-login">
                 PQR
@@ -246,7 +265,7 @@ const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
               </div>
             </div>
 
-            <div className="flex gap-3 flex-wrap lg:flex-nowrap">
+            <div className="secod-content flex gap-3 flex-wrap lg:flex-nowrap">
               <div className="content-fields">
                 <div className="flex items-center justify-between">
                   <label className="block text-sm font-medium leading-6 text-gray-900">
@@ -304,18 +323,18 @@ const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
               </div>
             </div>
 
-            <div>
+            <div className="pqr-opcion">
               <select
-                className="pqrType-item sm:text-sm field w-[385px] h-[36px]  border-gray-100 rounded-md ring-1 ring-inset ring-gray-300 content-fields"
+                className="pqrType-item sm:text-sm field w-[100%] h-[36px]  border-gray-100 rounded-md ring-1 ring-inset ring-gray-300 content-fields"
                 value={formData.pqrType}
                 onChange={(e) => updateForm({ pqrType: e.target.value })}
               >
                 <option className="pqrType-items" value="">
                   PQR Type
                 </option>
-                {pqrTypes.map((typeNames) => (
-                  <option key={typeNames} value={typeNames}>
-                    {typeNames}
+                {pqrTypes.map((type) => (
+                  <option key={type.id} value={type.id}>
+                    {type.category}
                   </option>
                 ))}
               </select>
@@ -328,22 +347,6 @@ const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
                 </Alert>
               )}
             </div>
-
-            {/* <div className="content-fields">
-                            <select className="pqrType-item sm:text-sm field w-[385px] h-[36px]  border-gray-100 rounded-md ring-1 ring-inset ring-gray-300 content-fields" value={formData.pqrType} onChange={(e) => updateForm({ pqrType: e.target.value })}>
-                                <option className="pqrType-items" value="">PQR Type</option>
-                                <option value="Opción 1">Opción 1</option>
-                                <option value="Opción 2">Opción 2</option>
-                                <option value="Opción 3">Opción 3</option>
-                                <option value="Opción 4">Opción 4</option>
-                            </select>
-                            {errors?.pqrType && (<Alert variant="destructive">
-                                <AlertCircle className="h-4 w-4" />
-                                <AlertDescription>
-                                    Error in the PQR Type field.
-                                </AlertDescription>
-                            </Alert>)}
-                        </div> */}
 
             <div className="content-fields">
               <div className="flex items-center justify-between">
@@ -397,7 +400,6 @@ const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
                 )}
               </div>
             </div>
-
             <div className="content-fields">
               <button
                 onClick={() => {
@@ -405,10 +407,7 @@ const PQRCompo: React.FC<IProps> = ({ empresa }: Props) => {
                 }}
                 type="submit"
                 id="btn-enviar"
-                className="btn-enviar "
-              >
-                Enviar PQR
-              </button>
+                className="btn-enviar">Enviar PQR</button>
             </div>
           </form>
         </div>

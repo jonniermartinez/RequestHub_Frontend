@@ -54,6 +54,7 @@ export default function Login() {
 
   return (
     <>
+    <div className="grid-cols-2">
       <div className="grid w-full max-w-sm items-center gap-6">
         <form
           onSubmit={handleSingIn}
@@ -92,6 +93,7 @@ export default function Login() {
         </form>
         <SingWithGoogle />
       </div>
+    </div>
 
       {errorCredentias ? <Toaster></Toaster> : ""}
     </>
