@@ -15,7 +15,7 @@ function Fotter() {
         <span className="block text-center text-gray-500 dark:text-gray-400">
           Need help?{" "}
           <a
-            href="https://twitter.com/JonnierMartinez"
+            href="https://twitter.com/jayddox"
             target="_blank"
             className="font-semibold text-gray-600 dark:text-white"
           >
