@@ -5,6 +5,7 @@ import { RootState } from "./redux/store";
 import RoutesNotFound from "./utilities/RoutesNotFound";
 import { PublicRoutes, PrivateRoutes } from "@/models";
 import { AuthGuard } from "./guards";
+import  Pricing  from "@/components/Pricing/Pricing"
 
 // Pages
 const Auth = lazy(() => import("./pages/Auth/Auth"));
@@ -22,6 +23,7 @@ function App() {
           <RoutesNotFound>
             {/* RUTAS PUBLICAS */}
             <Route path="/" element={<Landing />} />
+            <Route path="/pricing" element={<Pricing />} />
             <Route path={PublicRoutes.AUTH} element={<Auth />} />
             {/* RUTAS PRIVADAS protejer*/}
             <Route element={<AuthGuard />}>
