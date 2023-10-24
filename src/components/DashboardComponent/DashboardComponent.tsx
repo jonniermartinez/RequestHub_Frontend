@@ -1,4 +1,5 @@
 import './DashboardComponent.css'
+import { LogOut } from '..';
 
 export default function DashboardComponent() {
     return (
@@ -9,6 +10,7 @@ export default function DashboardComponent() {
                     <li>Inicio</li>
                     <li>Notificaciones</li>
                     <li>Configuración esto </li>
+                    <LogOut></LogOut>
                 </ul>
             </div>
             <div className="content">
