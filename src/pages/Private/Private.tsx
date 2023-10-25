@@ -1,9 +1,9 @@
 import Dashboard from "./Dashboard/Dashboard";
-import LogOut from "@/components/LogOut/LogOut";
+//import LogOut from "@/components/LogOut/LogOut";
 function Private() {
   return (
     <>
-      <LogOut />
+      {/* <LogOut /> */}
       <Dashboard />
     </>
   );

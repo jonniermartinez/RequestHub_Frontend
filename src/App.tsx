@@ -3,30 +3,35 @@ import { BrowserRouter, Route } from "react-router-dom";
 import RoutesNotFound from "./utilities/RoutesNotFound";
 import { PublicRoutes, PrivateRoutes } from "@/models";
 import { AuthGuard } from "./guards";
+import store from "./redux/store.ts";
+import { Provider } from "react-redux";
+import Landing from "./pages/Landing/Landing.tsx";
+import Spinner from "./components/Spinner/Spinner.tsx";
 
 // Pages
-const Auth = lazy(() => import("./pages/Auth/Auth"));
-const Private = lazy(() => import("./pages/Private/Private"));
-const Landing = lazy(() => import("./pages/Landing/Landing"));
-const Pqr = lazy(() => import("./pages/Pqr/Pqr"));
+const Auth = lazy(() => import("./pages/Auth/Auth.tsx"));
+const Private = lazy(() => import("./pages/Private/Private.tsx"));
+const Pqr = lazy(() => import("./pages/Pqr/Pqr.tsx"));
 
 function App() {
   return (
     <>
-      <Suspense fallback={<>Cargando</>}>
-        <BrowserRouter>
-          <RoutesNotFound>
-            {/* RUTAS PUBLICAS */}
-            <Route path="/" element={<Landing />} />
-            <Route path={`${PublicRoutes.PQR}/:id`} element={<Pqr />} />
-            <Route path={PublicRoutes.AUTH} element={<Auth />} />
-            {/* RUTAS PRIVADAS protejer */}
-            <Route element={<AuthGuard />}>
-              <Route path={PrivateRoutes.PRIVATE} element={<Private />} />
-            </Route>
-          </RoutesNotFound>
-        </BrowserRouter>
-      </Suspense>
+      <Provider store={store}>
+        <Suspense fallback={<><Spinner></Spinner></>}>
+          <BrowserRouter>
+            <RoutesNotFound>
+              {/* RUTAS PUBLICAS */}
+              <Route path="/" element={<Landing />} />
+              <Route path={`${PublicRoutes.PQR}/:id/:name`} element={<Pqr />} />
+              <Route path={PublicRoutes.AUTH} element={<Auth />} />
+              {/* RUTAS PRIVADAS protejer */}
+              <Route element={<AuthGuard />}>
+                <Route path={PrivateRoutes.PRIVATE} element={<Private />} />
+              </Route>
+            </RoutesNotFound>
+          </BrowserRouter>
+        </Suspense>
+      </Provider>
     </>
   );
 }
