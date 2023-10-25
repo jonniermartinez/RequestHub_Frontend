@@ -6,6 +6,7 @@ import { AuthGuard } from "./guards";
 import store from "./redux/store.ts";
 import { Provider } from "react-redux";
 import Landing from "./pages/Landing/Landing.tsx";
+import Spinner from "./components/Spinner/Spinner.tsx";
 
 // Pages
 const Auth = lazy(() => import("./pages/Auth/Auth.tsx"));
@@ -16,7 +17,7 @@ function App() {
   return (
     <>
       <Provider store={store}>
-        <Suspense fallback={<>Cargando</>}>
+        <Suspense fallback={<><Spinner></Spinner></>}>
           <BrowserRouter>
             <RoutesNotFound>
               {/* RUTAS PUBLICAS */}
