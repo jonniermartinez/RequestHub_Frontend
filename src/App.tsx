@@ -6,6 +6,7 @@ import { AuthGuard } from "./guards";
 import store from "./redux/store.ts";
 import { Provider } from "react-redux";
 import Landing from "./pages/Landing/Landing.tsx";
+import Pricing from "./components/Pricing/Pricing.tsx";
 
 // Pages
 const Auth = lazy(() => import("./pages/Auth/Auth.tsx"));
@@ -23,6 +24,7 @@ function App() {
               <Route path="/" element={<Landing />} />
               <Route path={`${PublicRoutes.PQR}/:id/:name`} element={<Pqr />} />
               <Route path={PublicRoutes.AUTH} element={<Auth />} />
+              <Route path={PublicRoutes.PRICING} element={<Pricing></Pricing>}></Route>
               {/* RUTAS PRIVADAS protejer */}
               <Route element={<AuthGuard />}>
                 <Route path={PrivateRoutes.PRIVATE} element={<Private />} />
