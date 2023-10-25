@@ -1,26 +1,11 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-
 .contenedor {
     width: 90%;
     max-width: 900px;
     margin: auto;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    background: #ece9ff;
-    
 }
 
 .tabla {
     width: 33%;
-    height: 550px;
     margin: auto;
     border: 1px solid #343759;
     border-radius: 4px;
@@ -29,14 +14,13 @@
     text-align: center;
     flex-grow: 1;
     color: #343759;
-
 }
 
 .titulo {
     display: block;
     font-size: 30px;
     font-weight: bold;
-    
+
 }
 
 .precio {
@@ -51,7 +35,7 @@
 }
 
 .div1 {
-    
+
     display: block;
     margin-bottom: 20px;
     text-align: left;
@@ -60,7 +44,7 @@
 
 
 .titulocontainer {
-display: flex;
-justify-content: space-between;
-align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
