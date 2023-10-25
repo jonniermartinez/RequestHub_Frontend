@@ -1,0 +1,28 @@
+/* IMAGEN X */
+.imagenCompo {
+  filter: brightness(0.9);
+  height: 100vh;
+  width: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.texto {
+  position: fixed;
+  color: white;
+  bottom: 5%;
+  left: 34%;
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  /* transform: translate(-65%, 100%); */
+}
+
+@media (max-width: 1080px) {
+  .imagenCompo {
+    display: none;
+  }
+
+  .texto {
+    display: none;
+  }
+}
