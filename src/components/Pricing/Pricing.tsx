@@ -29,8 +29,7 @@ function Pricing() {
         <p>
         ✔ no daily usage limit
         </p>
-      
-      
+    
         <p>
         ✔ Unlimited Node creations
         </p>
@@ -40,11 +39,10 @@ function Pricing() {
       </div>
 
       <div className="tabla">
+      <div className="titulocontainer">
       <p className="titulo">Twon+</p>
-      <Badge variant="default" className="bg-emerald-500">Your Plan</Badge>
-      <span className="tab">
-        Plan plus+
-      </span>
+      <Badge variant="default" className="bg-emerald-500">Plan Plus+</Badge>
+      </div>
 
     <p className="introduccion">
       A plan that will allow you to create more drafts
@@ -75,10 +73,10 @@ function Pricing() {
       </div>
 
       <div className="tabla">
+      <div className="titulocontainer">
       <p className="titulo">Twon Pro</p>
-      <span className="tab">
-        Popular
-      </span>
+      <Badge variant="default" className="bg-yellow-500">Popular</Badge>
+      </div>
 
     <p className="introduccion">
       A plan that gives yous all the freedom to use
@@ -92,7 +90,6 @@ function Pricing() {
         <p>
         ✔ no daily usage limit
         </p>
-      
       
         <p>
         ✔ Unlimited Node creations

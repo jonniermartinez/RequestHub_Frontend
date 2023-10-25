@@ -28,20 +28,21 @@
     padding: 30px 30px 30px 30px;
     text-align: center;
     flex-grow: 1;
-    color: #343759
+    color: #343759;
+
 }
 
 .titulo {
     display: block;
     font-size: 30px;
-    font-weight: bold
+    font-weight: bold;
     
 }
 
 .precio {
     font-size: 50px;
     margin-bottom: 20px;
-    font-weight: bold
+    font-weight: bold;
 }
 
 .introduccion {
@@ -54,6 +55,7 @@
     display: block;
     margin-bottom: 20px;
     text-align: left;
+    margin-top: 50px;
 }
 
 
