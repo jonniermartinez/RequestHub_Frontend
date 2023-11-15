@@ -1,6 +1,7 @@
 import { Button } from "../ui/button";
 import './Pricing.css';
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/badge";
+import { Nav } from "@/components";
 
 interface ItemsProps {
   title: string,
@@ -13,7 +14,6 @@ interface ItemsProps {
 export const PricingItem = ({ title, plan, description, price }: ItemsProps) => {
   return (
     <div className="tabla bg-white">
-
       <div className="titulocontainer">
         <p className="titulo">{title}</p>
         <Badge variant="default" className="bg-emerald-500">{plan}</Badge>
@@ -50,6 +50,7 @@ export const PricingItem = ({ title, plan, description, price }: ItemsProps) => 
 function Pricing() {
   return (
     <>
+    <Nav></Nav>
       <div className="contenedor relative pt-20">
         <div
           aria-hidden="true"

@@ -4,10 +4,11 @@ import { client } from "@/supabase";
 import { useState, useEffect } from "react";
 import Errorpagina from "@/components/404notfound/Errorpagina";
 
-
+//http://localhost:5173/pqr/2d11eba4-24c5-46b2-b34b-3d78f171a850/sara
 function Pqr() {
   const [existProfile, setExistProfile] = useState(Boolean)
-  const { id, name } = useParams();
+  // const { id, name } = useParams();
+  const { id } = useParams();
   // verificar si el id pertenece a alguna organizacion de nuestra base datos
   useEffect(() => {
     verifyTheId()

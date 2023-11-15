@@ -1,7 +1,24 @@
 import './DashboardComponent.css'
 import { LogOut } from '..';
+import { client } from "@/supabase";
+import { useEffect, useState } from 'react';
 
 export default function DashboardComponent() {
+    // const userState = useSelector((store: RootState) => store.user);
+    //     console.log(userState.data);
+    const [ id, setId ] = useState(String); 
+    useEffect(() => {
+        client.auth
+          .getSession()
+          .then((data) => {
+            if (data.data.session != null) {
+                setId(data.data.session.user.id);
+            }
+        })
+        .catch((error) => console.log(error));
+    }, []);
+    
+    console.log(id);
     return (
         <div className="dashboard">
             <div className="sidebar">
