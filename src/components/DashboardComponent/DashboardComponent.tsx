@@ -1,7 +1,6 @@
 // import { LogOut } from '..';
 import { client } from '@/supabase';
 import { useEffect, useState } from 'react';
-import { Button } from '..';
 import logo from '../../../public/icon.svg';
 import {
   SignOut,
@@ -9,11 +8,9 @@ import {
   Cube,
   ChartLine,
   Toolbox,
-  MagnifyingGlass,
   Bell,
 } from '@phosphor-icons/react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { TableDemo } from '../TableDemo/TableDemo';
 
 export default function DashboardComponent() {
   const [id, setId] = useState(String);
@@ -49,7 +46,6 @@ export default function DashboardComponent() {
             Overview
           </p>
           <div className="flex items-center gap-5">
-            <MagnifyingGlass size={20}></MagnifyingGlass>
             <Bell size={20}></Bell>
             <Avatar className=" w-8 h-8">
               <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
@@ -94,20 +90,7 @@ export default function DashboardComponent() {
               </div>
             </div>
           </div>
-          <div className="flex h-10">
-            <div className="w-[60%]">
-              <TableDemo></TableDemo>
-            </div>
-            <div className="w-[30%] p-10 flex flex-col gap-4 h-fit ml-20 m-10 rounded-xl bg-slate-950">
-              <p className="scroll-m-20 text-xl font-semibold tracking-tights text-white">
-                Earn Free Crytop With CoinView Earn!
-              </p>
-              <span className="text-xs inline-block text-white ">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              </span>
-              <Button>sadas</Button>
-            </div>
-          </div>
+          <div className="flex h-10"></div>
         </section>
       </div>
     </div>
