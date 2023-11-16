@@ -8,6 +8,9 @@ import { Icon } from '@/components/Icon/Icon';
 import { UserKPI } from '@/components/KPI/KPI';
 
 export default function Dashboard() {
+  /**
+   * Hacer que cada link muestre un componente distinto
+   */
   const [open, setOpen] = useState<boolean>(true);
 
   const [id, setId] = useState(String);
