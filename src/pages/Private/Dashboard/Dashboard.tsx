@@ -6,7 +6,6 @@ import { SilebarList } from '@/components/SilebarList/SilebarList';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Icon } from '@/components/Icon/Icon';
 import { UserKPI } from '@/components/KPI/KPI';
-import { Route, Routes } from 'react-router-dom';
 
 export default function Dashboard() {
   const [open, setOpen] = useState<boolean>(true);
@@ -61,9 +60,8 @@ export default function Dashboard() {
         <div className="bg-[#f9fafb] p-8 h-full w-full">
           <div className=" bg-white shadow-sm border h-full rounded-md p-5 ">
             {/* Paginas  */}
-            <Routes>
-              <Route path="/" element={<DashboardHome></DashboardHome>}></Route>
-            </Routes>
+
+            <DashboardHome></DashboardHome>
           </div>
         </div>
       </div>

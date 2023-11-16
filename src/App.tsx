@@ -34,8 +34,7 @@ function App() {
               {/* RUTAS PRIVADAS protejer */}
               <Route element={<AuthGuard />}>
                 <Route
-                  index
-                  path={`${PrivateRoutes.PRIVATE}`}
+                  path={`${PrivateRoutes.PRIVATE}/*`}
                   element={<Private />}
                 />
               </Route>
