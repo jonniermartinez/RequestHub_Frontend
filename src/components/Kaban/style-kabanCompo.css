@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  /* @apply bg-white text-black box-border; */
+  @apply text-black box-border;
+  font-family: sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  /* @apply bg-blue-900 rounded-xl; */
+  @apply rounded-xl;
+  background-color: #3ba1c5;
+
+}
+
+.title-container:focus{
+  border: solid red 2px;
+}
+
+.task > ::-webkit-scrollbar-thumb {
+  /* @apply bg-sky-500 rounded-xl; */
+  @apply rounded-xl;
+  background-color: #cdcece;
+}
+
+.tasks-container{
+  border: rgb(230, 230, 230) solid 2px;
+  border-top-right-radius: 7px;
+  border-top-left-radius: 7px;
+  border-bottom: none ;
+}
+
+.task-content{
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.task-content:hover{
+  border: #dde7f0 solid 2px;
+}
+
+.border-task{
+  border: solid #9dcddf 2px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.basura-icon:hover{
+  stroke: rgb(241, 73, 43);
+}
+
+.test{
+  border: solid red 3px;
+}
+
+.column-footer{
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+.add:hover{
+  color: #1f80a3;
+}
+
+.btn-opciones{
+  /* border: solid blue 2px; */
+  /* height: %; */
+  display: flex;
+  justify-content: center;
+  top: 30px;
+}
+
+.estado-label{
+  /* border: solid green 2px; */
+  /* border: solid 1px gray; */
+  color: green;
+}
+
+.content-opcions{
+  /* border: solid blue 2px; */
+  display: flex;
+  align-items: center;
+  height: 40px;
+  width: 100%;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: solid rgb(214, 214, 214) 1.5px;
+}
+
+.all-content{
+  /* border: solid red 2px; */
+  height: 100%;
+  width: 100%;
+}
+
+.btn-confirmar{
+  border: solid red 2px;
+}
