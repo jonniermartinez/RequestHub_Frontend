@@ -1,9 +1,8 @@
-import PlusIcon from "./icon/PlusIcon";
-import { useMemo, useState } from "react";
-import { Column, Id, Task } from "./types";
-import { client } from "@/supabase";
-import ColumnContainer from "./ColumnContainer";
-import "./style-kabanCompo.css"
+import { useMemo, useState } from 'react';
+import { Column, Id, Task } from './types';
+import { client } from '@/supabase';
+import ColumnContainer from './ColumnContainer';
+import './style-kabanCompo.css';
 
 import {
   DndContext,
@@ -14,23 +13,23 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
-} from "@dnd-kit/core";
-import { SortableContext, arrayMove } from "@dnd-kit/sortable";
-import { createPortal } from "react-dom";
-import TaskCard from "./TaskCard";
+} from '@dnd-kit/core';
+import { SortableContext, arrayMove } from '@dnd-kit/sortable';
+import { createPortal } from 'react-dom';
+import TaskCard from './TaskCard';
 
 const defaultCols: Column[] = [
   {
-    id: "todo",
-    title: "To Do",
+    id: 'todo',
+    title: 'To Do',
   },
   {
-    id: "doing",
-    title: "In progress",
+    id: 'doing',
+    title: 'In progress',
   },
   {
-    id: "done",
-    title: "Done",
+    id: 'done',
+    title: 'Done',
   },
 ];
 
@@ -104,7 +103,6 @@ const defaultCols: Column[] = [
 //   },
 // ];
 
-
 let defaultTasks: Task[] = [];
 let defaultTasks1: Task[] = [];
 let defaultTasks2: Task[] = [];
@@ -112,7 +110,9 @@ let defaultTasks2: Task[] = [];
 // Traer las tareas To do
 const { data: dataTodo, error: errorTodo } = await client
   .from('pqr_form')
-  .select(`id, pqr_owner, pqr_type, subject, message, state, category( category )`)
+  .select(
+    `id, pqr_owner, pqr_type, subject, message, state, category( category )`
+  )
   .eq('tablero', 'todo');
 
 if (errorTodo) {
@@ -121,27 +121,27 @@ if (errorTodo) {
 
 if (dataTodo && dataTodo.length > 0) {
   defaultTasks = [];
-  dataTodo.forEach(item => {
+  dataTodo.forEach((item) => {
     defaultTasks.push({
       id: item.id,
       columnId: 'todo',
       content: item.message,
-      category: item.category
-    })
-
+      category: item.category,
+    });
   });
 }
 
 // Traer las tareas Doing/ In progress
 const { data: dataDoing, error: errorDoing } = await client
   .from('pqr_form')
-  .select(`id, pqr_owner, pqr_type, subject, message, state, category( category )`)
-  .eq('tablero', 'doing')
+  .select(
+    `id, pqr_owner, pqr_type, subject, message, state, category( category )`
+  )
+  .eq('tablero', 'doing');
 
 // .from('pqr_form')
 // .select('id, pqr_owner, pqr_type, subject, message, state')
 // .eq('tablero', 'doing');
-
 
 if (errorDoing) {
   console.error('Error al consultar la base de datos:', errorDoing.message);
@@ -149,24 +149,24 @@ if (errorDoing) {
 
 if (dataDoing && dataDoing.length > 0) {
   defaultTasks1 = [];
-  dataDoing.forEach(item => {
+  dataDoing.forEach((item) => {
     // console.log(item.message);
     // console.log(item.id);
     defaultTasks1.push({
       id: item.id,
       columnId: 'doing',
       content: item.message,
-      category: item.category
-    }) 
-
+      category: item.category,
+    });
   });
-
 }
 
 // Traer las tareas Done
 const { data: dataDone, error: errorDone } = await client
   .from('pqr_form')
-  .select(`id, pqr_owner, pqr_type, subject, message, state, category( category )`)
+  .select(
+    `id, pqr_owner, pqr_type, subject, message, state, category( category )`
+  )
   .eq('tablero', 'done');
 
 if (errorDone) {
@@ -175,25 +175,26 @@ if (errorDone) {
 
 if (dataDone && dataDone.length > 0) {
   defaultTasks2 = [];
-  dataDone.forEach(item => {
+  dataDone.forEach((item) => {
     // console.log(item.message);
     // console.log(item.id);
     defaultTasks2.push({
       id: item.id,
       columnId: 'done',
       content: item.message,
-      category: item.category
-
-    })
+      category: item.category,
+    });
   });
-
 }
 
 // Agregar todos las pqrs para agregar a los tableros
 defaultTasks = [...defaultTasks, ...defaultTasks1, ...defaultTasks2];
 
 // Realiza la actualización en la base de datos del campo tablero
-async function actualizarCampoTablero(taskId: number, nuevoValorTablero: string) {
+async function actualizarCampoTablero(
+  taskId: number,
+  nuevoValorTablero: string
+) {
   try {
     const { data, error } = await client
       .from('pqr_form')
@@ -238,13 +239,12 @@ async function actualizarCampoMessage(taskId: number, nuevoMessage: string) {
   }
 }
 
-function KanbanBoard() {
-
+function KanbanBoard(): JSX.Element {
   // Realiza la consulta SELECT
   const [columns, setColumns] = useState<Column[]>(defaultCols);
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
 
-  const [tasks, setTasks] = useState<Task[]>(defaultTasks);  
+  const [tasks, setTasks] = useState<Task[]>(defaultTasks);
 
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
 
@@ -259,18 +259,15 @@ function KanbanBoard() {
   );
 
   return (
-
     <div
       // CONTENEDOR DE TODO
       className="
+        kabanContainer
         m-auto
         flex
-        min-h-screen
-        w-full
-        items-center
         overflow-x-auto
-        overflow-y-hidden
-        px-[40px]
+        w-full
+         h-full
     "
     >
       <DndContext
@@ -279,7 +276,7 @@ function KanbanBoard() {
         onDragEnd={onDragEnd}
         onDragOver={onDragOver}
       >
-        <div className="m-auto flex gap-4">
+        <div className=" gap-4">
           <div className="flex gap-4">
             <SortableContext items={columnsId}>
               {columns.map((col) => (
@@ -296,7 +293,7 @@ function KanbanBoard() {
               ))}
             </SortableContext>
           </div>
-          <button
+          {/* <button
             onClick={() => {
               createNewColumn();
             }}
@@ -318,7 +315,7 @@ function KanbanBoard() {
           >
             <PlusIcon />
             Add Column
-          </button>
+          </button> */}
         </div>
 
         {createPortal(
@@ -358,10 +355,9 @@ function KanbanBoard() {
       columnId,
       content: `Task ${tasks.length + 1}`,
       category: 'Abierto',
-    };    
+    };
     setTasks([...tasks, newTask]);
   }
-
 
   function deleteTask(id: Id) {
     const newTasks = tasks.filter((task) => task.id !== id);
@@ -370,7 +366,6 @@ function KanbanBoard() {
 
   // ACTUALIZAR CONTENIDO DE LA TASK
   function updateTask(id: Id, content: string) {
-
     let taskId: any;
     let nuevoMessage: any;
 
@@ -385,7 +380,6 @@ function KanbanBoard() {
     // console.log('content: ',content);
     actualizarCampoMessage(taskId, nuevoMessage);
     setTasks(newTasks);
-
   }
 
   function createNewColumn() {
@@ -415,12 +409,12 @@ function KanbanBoard() {
   }
 
   function onDragStart(event: DragStartEvent) {
-    if (event.active.data.current?.type === "Column") {
+    if (event.active.data.current?.type === 'Column') {
       setActiveColumn(event.active.data.current.column);
       return;
     }
 
-    if (event.active.data.current?.type === "Task") {
+    if (event.active.data.current?.type === 'Task') {
       setActiveTask(event.active.data.current.task);
       return;
     }
@@ -438,10 +432,10 @@ function KanbanBoard() {
 
     if (activeId === overId) return;
 
-    const isActiveAColumn = active.data.current?.type === "Column";
+    const isActiveAColumn = active.data.current?.type === 'Column';
     if (!isActiveAColumn) return;
 
-    console.log("DRAG END");
+    console.log('DRAG END');
 
     setColumns((columns) => {
       const activeColumnIndex = columns.findIndex((col) => col.id === activeId);
@@ -461,14 +455,13 @@ function KanbanBoard() {
 
     if (activeId === overId) return;
 
-    const isActiveATask = active.data.current?.type === "Task";
-    const isOverATask = over.data.current?.type === "Task";
+    const isActiveATask = active.data.current?.type === 'Task';
+    const isOverATask = over.data.current?.type === 'Task';
 
     if (!isActiveATask) return;
 
     // Im dropping a Task over another Task
     if (isActiveATask && isOverATask) {
-
       let taskId: any;
       let nuevoValorTablero: any;
 
@@ -476,7 +469,7 @@ function KanbanBoard() {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
         const overIndex = tasks.findIndex((t) => t.id === overId);
 
-        // AGREGADO    
+        // AGREGADO
         taskId = tasks[activeIndex].id;
         nuevoValorTablero = tasks[overIndex].columnId;
 
@@ -492,11 +485,10 @@ function KanbanBoard() {
       actualizarCampoTablero(taskId, nuevoValorTablero);
     }
 
-    const isOverAColumn = over.data.current?.type === "Column";
+    const isOverAColumn = over.data.current?.type === 'Column';
 
     // Arrastrar tarea sobre una columna
     if (isActiveATask && isOverAColumn) {
-
       let taskId: any;
       let nuevoValorTablero: any;
 
@@ -504,17 +496,14 @@ function KanbanBoard() {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
         tasks[activeIndex].columnId = overId;
 
-        console.log("Arrastrar tarea sobre una columna", { activeIndex });
+        console.log('Arrastrar tarea sobre una columna', { activeIndex });
         taskId = tasks[activeIndex].id;
         nuevoValorTablero = tasks[activeIndex].columnId;
         return arrayMove(tasks, activeIndex, activeIndex);
-
       });
       actualizarCampoTablero(taskId, nuevoValorTablero);
     }
-
   }
-
 }
 
 function generateId() {
@@ -523,4 +512,3 @@ function generateId() {
 }
 
 export default KanbanBoard;
-

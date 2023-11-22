@@ -1,8 +1,19 @@
 // import { LogOut } from '..';
 import { client } from '@/supabase';
 import { useEffect, useState } from 'react';
-import { Bell, SquaresFour, List } from '@phosphor-icons/react';
-import { SilebarList } from '@/components/SilebarList/SilebarList';
+import {
+  Bell,
+  SquaresFour,
+  List,
+  Command,
+  Tray,
+  Kanban,
+  Info,
+} from '@phosphor-icons/react';
+import { Li } from '@/components/Li/Li';
+import { Separator } from '@/components/ui/separator';
+import KanbanBoard from '@/components/Kaban/KanbanBoard';
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Icon } from '@/components/Icon/Icon';
 import { UserKPI } from '@/components/KPI/KPI';
@@ -12,6 +23,7 @@ export default function Dashboard() {
    * Hacer que cada link muestre un componente distinto
    */
   const [open, setOpen] = useState<boolean>(true);
+  const [section, setSection] = useState(String);
 
   const [id, setId] = useState(String);
   useEffect(() => {
@@ -26,6 +38,26 @@ export default function Dashboard() {
   }, []);
 
   console.log(id);
+
+  const setSectionOpen = (): JSX.Element => {
+    switch (section) {
+      case 'Dashboard':
+        return <DashboardHome></DashboardHome>;
+        break;
+      case 'Kanban':
+        return <KanbanBoard></KanbanBoard>;
+
+        break;
+      case 'Inbox':
+        return <>Inbox</>;
+
+        break;
+      default:
+        return <DashboardHome></DashboardHome>;
+        break;
+    }
+  };
+
   return (
     <div className="h-screen">
       <nav className="border-b-[1px] border-black/5 flex justify-between items-center h-14 p-5">
@@ -58,13 +90,55 @@ export default function Dashboard() {
       </nav>
       <div className="custom-h flex">
         <div className="  border-black/5 h-full w-fit border-r-[1px] ">
-          <SilebarList open={open}></SilebarList>
+          <ul
+            className={`${
+              open ? 'w-56' : ''
+            } mx-auto px-3 py-4 ml-2 flex flex-col gap-3`}
+          >
+            <div
+              onClick={() => {
+                setSection('Dashboard');
+              }}
+            >
+              <Li
+                text="Dashboard"
+                icon={<Command size={23} weight="bold" />}
+                short={!open}
+              ></Li>
+            </div>
+            <div
+              onClick={() => {
+                setSection('Kanban');
+              }}
+            >
+              <Li
+                text="Kanban"
+                icon={<Kanban size={23} weight="bold"></Kanban>}
+                short={!open}
+              ></Li>
+            </div>
+            <div onClick={() => setSection('Inbox')}>
+              <Li
+                text="Inbox"
+                number={3}
+                icon={<Tray size={23} weight="bold"></Tray>}
+                short={!open}
+              ></Li>
+            </div>
+            <Separator />
+            <Li
+              text="Help"
+              short={!open}
+              icon={<Info size={23} weight="bold"></Info>}
+            ></Li>
+          </ul>
         </div>
         <div className="bg-[#f9fafb] p-8 h-full w-full">
           <div className=" bg-white shadow-sm border h-full rounded-md p-5 ">
             {/* Paginas  */}
-
-            <DashboardHome></DashboardHome>
+            {/* <DashboardHome></DashboardHome> */}
+            {/* <KanbanBoard></KanbanBoard> */}
+            {setSectionOpen()}
           </div>
         </div>
       </div>

@@ -1,10 +1,9 @@
-import { SortableContext, useSortable } from "@dnd-kit/sortable";
-import TrashIcon from "./icon/TrashIcon";
-import { Column, Id, Task } from "./types";
-import { CSS } from "@dnd-kit/utilities";
-import { useMemo, useState } from "react";
-import PlusIcon from "./icon/PlusIcon";
-import TaskCard from "./TaskCard";
+import { SortableContext, useSortable } from '@dnd-kit/sortable';
+import TrashIcon from './icon/TrashIcon';
+import { Column, Id, Task } from './types';
+import { CSS } from '@dnd-kit/utilities';
+import { useMemo, useState } from 'react';
+import TaskCard from './TaskCard';
 
 interface Props {
   column: Column;
@@ -42,7 +41,7 @@ function ColumnContainer({
   } = useSortable({
     id: column.id,
     data: {
-      type: "Column",
+      type: 'Column',
       column,
     },
     disabled: editMode,
@@ -61,7 +60,6 @@ function ColumnContainer({
         className="
       bg-columnBackgroundColor
       opacity-40
-      border-2
       border-pink-500
       w-[350px]
       h-[500px]
@@ -70,8 +68,7 @@ function ColumnContainer({
       flex
       flex-col
       "
-      >
-      </div>
+      ></div>
     );
   }
 
@@ -82,7 +79,7 @@ function ColumnContainer({
       className="
   bg-columnBackgroundColor
   w-[350px]
-  h-[500px]
+   h-fit 
   max-h-[500px]
   rounded-md
   flex
@@ -96,7 +93,7 @@ function ColumnContainer({
         onClick={() => {
           setEditMode(true);
         }}
-    // Borde de los titulos container To do etc
+        // Borde de los titulos container To do etc
         className="
       bg-mainBackgroundColor
       text-md
@@ -117,7 +114,7 @@ function ColumnContainer({
       >
         <div className="flex gap-2">
           <div
-        //   0 Al lado de To do y los otros titulos
+            //   0 Al lado de To do y los otros titulos
             className="
         flex
         justify-center
@@ -128,12 +125,11 @@ function ColumnContainer({
         text-sm
         rounded-full
         "
-          >
-          </div>
+          ></div>
           {!editMode && column.title}
           {editMode && (
             <input
-            // Contenedor de titulos
+              // Contenedor de titulos
               className="bg-white focus:border-blue-400 border-b-2 outline-none px-2"
               value={column.title}
               onChange={(e) => updateColumn(column.id, e.target.value)}
@@ -142,7 +138,7 @@ function ColumnContainer({
                 setEditMode(false);
               }}
               onKeyDown={(e) => {
-                if (e.key !== "Enter") return;
+                if (e.key !== 'Enter') return;
                 setEditMode(false);
               }}
             />
@@ -152,7 +148,7 @@ function ColumnContainer({
           onClick={() => {
             deleteColumn(column.id);
           }}
-        // ICONO DE BASURA
+          // ICONO DE BASURA
           className="
         stroke-gray-500
         basura-icon
@@ -179,7 +175,7 @@ function ColumnContainer({
         </SortableContext>
       </div>
       {/* Column footer */}
-      <button
+      {/* <button
         className="add column-footer flex gap-2 items-center border-columnBackgroundColor border-2 p-4 border-x-columnBackgroundColor hover:bg-mainBackgroundColor active:bg-blue"
         onClick={() => {
           createTask(column.id);
@@ -187,7 +183,7 @@ function ColumnContainer({
       >
         <PlusIcon />
         Add task
-      </button>
+      </button> */}
     </div>
   );
 }
