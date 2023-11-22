@@ -17,6 +17,7 @@ import Inbox from '@/components/Inbox/Inbox';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Icon } from '@/components/Icon/Icon';
 import { UserKPI } from '@/components/KPI/KPI';
+import Chart from '@/components/Chart/Chart';
 
 export default function Dashboard() {
   /**
@@ -135,9 +136,6 @@ export default function Dashboard() {
         </div>
         <div className="bg-[#f9fafb] p-8 h-full w-full">
           <div className=" bg-white shadow-sm border h-full rounded-md p-5 ">
-            {/* Paginas  */}
-            {/* <DashboardHome></DashboardHome> */}
-            {/* <KanbanBoard></KanbanBoard> */}
             {setSectionOpen()}
           </div>
         </div>
@@ -151,7 +149,9 @@ const DashboardHome = (): JSX.Element => {
     <div className="flex flex-col gap-16">
       <UserKPI></UserKPI>
       <div className="  flex w-full h-full gap-10 ">
-        <div className="bg-white w-3/5 rounded-md border">{/* chart */}</div>
+        <div className="bg-white w-3/5 rounded-md border">
+          <Chart></Chart>
+        </div>
         <div className="bg-white w-2/5 rounded-md border">{/* users */}</div>
       </div>
     </div>
