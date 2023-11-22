@@ -18,6 +18,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Icon } from '@/components/Icon/Icon';
 import { UserKPI } from '@/components/KPI/KPI';
 import Chart from '@/components/Chart/Chart';
+import CardShareLink from '@/components/CardSharLink/CardShareLink';
 
 export default function Dashboard() {
   /**
@@ -152,7 +153,9 @@ const DashboardHome = (): JSX.Element => {
         <div className="bg-white w-3/5 rounded-md border">
           <Chart></Chart>
         </div>
-        <div className="bg-white w-2/5 rounded-md border">{/* users */}</div>
+        <div className="bg-white w-2/5 rounded-md border">
+          <CardShareLink></CardShareLink>
+        </div>
       </div>
     </div>
   );
