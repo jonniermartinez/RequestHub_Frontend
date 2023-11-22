@@ -1,42 +1,6 @@
-import { client } from '@/supabase';
-
-// Get Totals pqrs by user
-async function getSeccionID() {
-  try {
-    const { data } = await client.auth.getSession();
-    return data.session?.user.id;
-  } catch (error) {
-    console.log(error);
-  }
-}
-const pqrQuantity = async () => {
-  let id = await getSeccionID();
-  id = '2d11eba4-24c5-46b2-b34b-3d78f171a850';
-  // por ahora usar el id harcodiado
-
-  try {
-    const { data, error } = await client
-      .from('pqr_form')
-      .select('*')
-      .eq('id_profile', id);
-
-    if (error) {
-      console.error('Error al actualizar el campo message:', error.message);
-      return [];
-    }
-
-    if (data) {
-      console.log('Campo message actualizado con éxito:', data);
-      return data || [];
-    }
-  } catch (error) {
-    console.error('Error inesperado:', error.message);
-    return [];
-  }
-};
+import { pqrQuantity } from '@/utilities/getTotalPqrs';
 
 const data = await pqrQuantity();
-console.log(data?.length);
 
 export const UserKPI = (): JSX.Element => {
   return (

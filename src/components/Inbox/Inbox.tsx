@@ -8,14 +8,18 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { client } from '@/supabase';
+import { getUserId } from '@/utilities/getUserId';
 // Import statements remain the same
 
 // Function to retrieve the last 7 records from the database
 const getLast7Records = async () => {
+  const userId = await getUserId();
+
   try {
     const { data, error } = await client
       .from('pqr_form')
       .select('creation_time, message, subject, state, category(category)')
+      .eq('id_profile', userId)
       .order('id', { ascending: false })
       .limit(7);
 
