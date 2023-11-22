@@ -13,7 +13,7 @@ import {
 import { Li } from '@/components/Li/Li';
 import { Separator } from '@/components/ui/separator';
 import KanbanBoard from '@/components/Kaban/KanbanBoard';
-
+import Inbox from '@/components/Inbox/Inbox';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Icon } from '@/components/Icon/Icon';
 import { UserKPI } from '@/components/KPI/KPI';
@@ -49,7 +49,7 @@ export default function Dashboard() {
 
         break;
       case 'Inbox':
-        return <>Inbox</>;
+        return <Inbox></Inbox>;
 
         break;
       default:
@@ -120,7 +120,7 @@ export default function Dashboard() {
             <div onClick={() => setSection('Inbox')}>
               <Li
                 text="Inbox"
-                number={3}
+                number={7}
                 icon={<Tray size={23} weight="bold"></Tray>}
                 short={!open}
               ></Li>
