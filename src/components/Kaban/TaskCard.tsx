@@ -1,22 +1,10 @@
 import { useState } from "react";
-import TrashIcon from "./icon/TrashIcon";
 import { Id, Task } from "./types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { client } from "@/supabase";
-import { Task1, Task2 } from "./types";
+import { Task1, Task2, Task3 } from "./types";
 import type { Id as CategoryIdType } from './types';
-
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { log } from "console";
 
 interface Props {
   task: Task;
@@ -26,18 +14,17 @@ interface Props {
 
 
 // AGREGADO
-
 let defaultTasks: Task1[] = [];
 let defaultTasks1: Task1[] = [];
 let defaultTasks2: Task1[] = [];
 let categorysData: Task1[] = [];
-let cateId: Task2[] = [];
+let stateData: Task3[] = [];
 
 // Traer las tareas To do
 const { data: dataTodo, error: errorTodo } = await client
   .from('pqr_form')
   .select(`id, pqr_owner, pqr_type, subject, message, state, category( category )`)
-  .eq('tablero', 'todo');
+  .eq('state', 'open');
 
 if (errorTodo) {
   console.error('Error al consultar la base de datos:', errorTodo.message);
@@ -58,7 +45,7 @@ if (dataTodo && dataTodo.length > 0) {
 const { data: dataDoing, error: errorDoing } = await client
   .from('pqr_form')
   .select(`id, pqr_owner, pqr_type, subject, message, state, category( category )`)
-  .eq('tablero', 'doing');
+  .eq('state', 'reviwing');
 
 if (errorDoing) {
   console.error('Error al consultar la base de datos:', errorDoing.message);
@@ -75,11 +62,13 @@ if (dataDoing && dataDoing.length > 0) {
   });
 }
 
+
+
 // Traer las tareas done
 const { data: dataDone, error: errorDone } = await client
   .from('pqr_form')
   .select(`id, pqr_owner, pqr_type, subject, message, state, category( category )`)
-  .eq('tablero', 'done');
+  .eq('state', 'done');
 
 if (errorDone) {
   console.error('Error al consultar la base de datos:', errorDone.message);
@@ -116,7 +105,29 @@ if (dataCategory && dataCategory.length > 0) {
 
 }
 
+// TRAER TODAS LAS CATEGORIAS DE LA DB
+const { data: dataState, error: errorState } = await client
+  .from('pqr_form')
+  .select(`state, id`);
+
+if (errorState) {
+  console.error('Error al consultar la base de datos:', errorState.message);
+}
+
+if (dataState && dataState.length > 0) {
+  categorysData = [];
+  dataState.forEach(item => {
+    stateData.push({
+      state: item.state,
+      id: item.id,
+    })
+  });
+
+}
+
 defaultTasks = [...defaultTasks, ...defaultTasks1, ...defaultTasks2];
+
+console.log('stateData: ', stateData);
 
 const getCategotyIdByName = async (catName: String) => {
 
@@ -134,7 +145,33 @@ const getCategotyIdByName = async (catName: String) => {
 
 }
 
-function TaskCard({ task, deleteTask, updateTask }: Props) {
+
+
+const updateState = async (newState: String) => {
+  // try {
+  //   const { data, error } = await client
+  //     .from('pqr_form')
+  //     .update({ state: newState })
+  //     .eq('id', task.id);
+
+  //   if (error) {
+  //     console.error('Error al actualizar el campo state:', error.message);
+  //     return null;
+  //   }
+
+  //   if (data) {
+  //     console.log('Campo state actualizado con éxito:', data);
+  //     return data;
+  //   }
+  // } catch (error) {
+  //   console.error('Error inesperado:', error.message);
+  //   return null;
+  // }
+
+}
+
+
+function TaskCard({task, deleteTask, updateTask }: Props) {
 
   const [mouseIsOver, setMouseIsOver] = useState(false);
   const [editMode, setEditMode] = useState(true);
@@ -142,8 +179,9 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
   const [categoryId, setCategoryId] = useState<CategoryIdType>('');
 
   const categorias = defaultTasks.find(item => item.id === task.id)?.category;
+  const stateDat = stateData.find(item => item.id !== task.id)?.state;
 
-  // Función para actualizar la categoría en la base de datos
+  // Función pra actualizar la categoría en la base de datos
   async function updateCategoryInDatabase(catId: Id) {
     // catId: Id de la categoria 1 - 2 - 3 - 4.
 
@@ -156,7 +194,7 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
       if (error) {
         console.error('Error al actualizar la categoría:', error.message);
       } else {
-        console.log('Categoría actualizada exitosamente:', data);
+        
       }
     } catch (error) {
       console.error('Error al actualizar la categoría:', error.message);
@@ -253,6 +291,30 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
     }
   }
 
+  
+  // ACTUALIZAR ESTADO
+  const setState = async (newState: string) => {
+    try {
+      if (newState !== task.state) {
+        // Solo realiza la actualización si el nuevo estado es diferente al estado actual
+        await updateState(newState);
+      } else {
+        console.log('El estado no ha cambiado, no es necesario actualizar la base de datos.');
+      }
+    } catch (error) {
+      console.error('Error al manejar la actualización de estado:', error);
+    }
+  }
+
+  // console.log('currentState: ',currentState);
+  
+  
+
+  // if (currentState) {
+  //   setState(currentState);
+  // }
+
+
   return (
     <div
       ref={setNodeRef}
@@ -272,11 +334,57 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
     >
 
       <div className="all-content">
+        <div>
+          {/* {categorysData.map((category) => {
+          return ( */}
+          <span
+            className="btn-cat h-[30px] w-[90px] justify-center inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
+            key={task.id}
+          >{categorias?.category}</span>
+
+
+
+
+
+
+
+
+          {/* STATEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE */}
+          {/* <div className="content-state"> */}
+
+          {/* {stateData.map(item => (
+          <span className="span-cat h-[30px] w-[90px] justify-center inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
+            // key={item.id}
+            defaultValue={task.state}
+            onVolumeChange={() =>{
+              setState(item.state);
+            }}
+            >
+            {task.id}
+          </span>
+            ))} */}
+
+          {/* {currentState && ( */}
+            <span
+              className="span-cat h-[30px] w-[90px] justify-center inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
+              // defaultValue={task.state}
+            >
+              {task.state}
+            </span>
+          {/* )} */}
+
+          {/* </div> */}
+        </div>
+
         <div className="content-opcions">
+          <div className="subject-content font-bold">
+            {task.subject}
+          </div>
 
           {/* ESTADO */}
-          <div className="estado-label">
-            <div className="pqr-opcion">
+          {/* <div className="subject-content"> */}
+
+          {/* <div className="pqr-opcion">
               <Select onValueChange={(value: string) => {
                 handletSelect(value);
               }}>
@@ -301,21 +409,30 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
                   </SelectGroup>
                 </SelectContent>
               </Select>
-            </div>
+            </div> */}
+          {/* </div> */}
+          <div className="contentState">
+            {/* <span className="span-cat h-[30px] w-[90px] justify-center inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
+            key={task.id}
+            onClick={() => setState(task.state)}
+            >
+              {task.state}
+            </span> */}
           </div>
         </div>
-
         {/* {mouseIsOver && ( */}
 
         {/* )} */}
-        <div>
+        <div className="content-message">
           <p className="my-auto h-[90%] w-[90%] overflow-y-auto overflow-x-hidden whitespace-pre-wrap">
+            {/* {task.content} */}
             {task.content}
           </p>
         </div>
-      </div>
+      </div >
+
       {/* {mouseIsOver && ( */}
-      <button
+      {/* <button
         onClick={() => {
           deleteTask(task.id);
         }}
@@ -323,7 +440,7 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
         className="btn-opciones stroke-black absolute right-3 -translate-y-1/2 bg-columnBackgroundColor p-1 rounded opacity-60 hover:opacity-100"
       >
         <TrashIcon />
-      </button>
+      </button> */}
       {/* )} */}
     </div >
   );

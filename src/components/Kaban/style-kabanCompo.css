@@ -25,10 +25,6 @@ body,
 
 }
 
-.title-container:focus{
-  border: solid red 2px;
-}
-
 .task > ::-webkit-scrollbar-thumb {
   /* @apply bg-sky-500 rounded-xl; */
   @apply rounded-xl;
@@ -37,9 +33,7 @@ body,
 
 .tasks-container{
   border: rgb(230, 230, 230) solid 2px;
-  border-top-right-radius: 7px;
-  border-top-left-radius: 7px;
-  border-bottom: none ;
+  border-radius: 7px;
 }
 
 .task-content{
@@ -73,36 +67,37 @@ body,
 }
 
 .btn-opciones{
-  /* border: solid blue 2px; */
-  /* height: %; */
   display: flex;
   justify-content: center;
   top: 30px;
 }
 
 .estado-label{
-  /* border: solid green 2px; */
-  /* border: solid 1px gray; */
   color: green;
 }
 
 .content-opcions{
-  /* border: solid blue 2px; */
   display: flex;
   align-items: center;
   height: 40px;
   width: 100%;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-  border-bottom: solid rgb(214, 214, 214) 1.5px;
+  padding: 0;
+  padding-top: 10px;
 }
 
 .all-content{
-  /* border: solid red 2px; */
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.btn-confirmar{
+.span-cat{
   border: solid red 2px;
+  margin-left: 10px;
+}
+
+.content-message{
+  height: 100%;
 }

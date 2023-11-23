@@ -78,8 +78,8 @@ function ColumnContainer({
       style={style}
       className="
   bg-columnBackgroundColor
-  w-[350px]
-   h-fit 
+  w-[330px]
+  h-[480px]
   max-h-[500px]
   rounded-md
   flex
@@ -144,7 +144,7 @@ function ColumnContainer({
             />
           )}
         </div>
-        <button
+        {/* <button
           onClick={() => {
             deleteColumn(column.id);
           }}
@@ -158,7 +158,7 @@ function ColumnContainer({
         "
         >
           <TrashIcon />
-        </button>
+        </button> */}
       </div>
 
       {/* Column task container */}

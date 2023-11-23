@@ -24,7 +24,7 @@ function App() {
             <RoutesNotFound>
               {/* RUTAS PUBLICAS */}
               <Route path="/" element={<Landing />} />
-              <Route path={`${PublicRoutes.PQR}/:id/:name`} element={<Pqr />} />
+              <Route path={`x${PublicRoutes.PQR}/:id/:name`} element={<Pqr />} />
 
               <Route path={PublicRoutes.AUTH} element={<Auth />} />
               <Route

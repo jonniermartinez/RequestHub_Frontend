@@ -20,88 +20,18 @@ import TaskCard from './TaskCard';
 
 const defaultCols: Column[] = [
   {
-    id: 'todo',
-    title: 'To Do',
+    id: 'open',
+    title: 'Open',
   },
   {
-    id: 'doing',
-    title: 'In progress',
+    id: 'reviwing',
+    title: 'Reviwing',
   },
   {
     id: 'done',
     title: 'Done',
   },
 ];
-
-// const defaultTasks: Task[] = [
-
-//   {
-//     id: "1",
-//     columnId: "todo",
-//     content: "List admin APIs for dashboard",
-//   },
-//   {
-//     id: "2",
-//     columnId: "todo",
-//     content:
-//       "Develop user registration functionality with OTP delivered on SMS after email confirmation and phone number confirmation",
-//   },
-//   {
-//     id: "3",
-//     columnId: "doing",
-//     content: "Conduct security testing",
-//   },
-//   {
-//     id: "4",
-//     columnId: "doing",
-//     content: "Analyze competitors",
-//   },
-//   {
-//     id: "5",
-//     columnId: "done",
-//     content: "Create UI kit documentation",
-//   },
-//   {
-//     id: "6",
-//     columnId: "done",
-//     content: "Dev meeting",
-//   },
-//   {
-//     id: "7",
-//     columnId: "done",
-//     content: "Deliver dashboard prototype",
-//   },
-//   {
-//     id: "8",
-//     columnId: "todo",
-//     content: "Optimize application performance",
-//   },
-//   {
-//     id: "9",
-//     columnId: "todo",
-//     content: "Implement data validation",
-//   },
-//   {
-//     id: "10",
-//     columnId: "todo",
-//     content: "Design database schema",
-//   },
-//   {
-//     id: "11",
-//     columnId: "todo",
-//     content: "Integrate SSL web certificates into workflow",
-//   },
-//   {
-//     id: "12",
-//     columnId: "doing",
-//     content: "Implement error logging and monitoring",
-//   },
-//   {
-//     id: "13",
-//     columnId: "doing",
-//     content: "Design and implement responsive UI",
-//   },
-// ];
 
 let defaultTasks: Task[] = [];
 let defaultTasks1: Task[] = [];
@@ -113,7 +43,7 @@ const { data: dataTodo, error: errorTodo } = await client
   .select(
     `id, pqr_owner, pqr_type, subject, message, state, category( category )`
   )
-  .eq('tablero', 'todo');
+  .eq('state', 'open');
 
 if (errorTodo) {
   console.error('Error al consultar la base de datos:', errorTodo.message);
@@ -124,50 +54,90 @@ if (dataTodo && dataTodo.length > 0) {
   dataTodo.forEach((item) => {
     defaultTasks.push({
       id: item.id,
-      columnId: 'todo',
+      columnId: 'open',
       content: item.message,
       category: item.category,
+      subject: item.subject,
+      state: item.state,
     });
   });
 }
+
 
 // Traer las tareas Doing/ In progress
-const { data: dataDoing, error: errorDoing } = await client
-  .from('pqr_form')
-  .select(
-    `id, pqr_owner, pqr_type, subject, message, state, category( category )`
-  )
-  .eq('tablero', 'doing');
+// const { data: dataDoing, error: errorDoing } = await client
+//   .from('pqr_form')
+//   .select(
+//     `id, pqr_owner, pqr_type, subject, message, state, category( category )`
+//   )
+//   .eq('state', 'reviwing');
 
-// .from('pqr_form')
-// .select('id, pqr_owner, pqr_type, subject, message, state')
-// .eq('tablero', 'doing');
+// if (errorDoing) {
+//   console.error('Error al consultar la base de datos:', errorDoing.message);
+// }
 
-if (errorDoing) {
-  console.error('Error al consultar la base de datos:', errorDoing.message);
+// if (dataDoing && dataDoing.length > 0) {
+//   defaultTasks1 = [];
+//   dataDoing.forEach((item) => {
+//     // console.log(item.message);
+//     // console.log(item.id);
+//     defaultTasks1.push({
+//       id: item.id,
+//       columnId: 'reviwing',
+//       content: item.message,
+//       category: item.category,
+//       subject: item.subject,
+//       state: item.state,
+//     });
+//   });
+// }
+interface DatabaseResponse {
+  data: Task[];
+  error: Error | null;
 }
 
-if (dataDoing && dataDoing.length > 0) {
-  defaultTasks1 = [];
-  dataDoing.forEach((item) => {
-    // console.log(item.message);
-    // console.log(item.id);
-    defaultTasks1.push({
-      id: item.id,
-      columnId: 'doing',
-      content: item.message,
-      category: item.category,
-    });
-  });
-}
+async function fetchDataFromDatabase(): Promise<DatabaseResponse> {
+ 
+  
+  try {
+    const { data: dataDoing, error: errorDoing } = await client
+      .from('pqr_form')
+      .select(`id, pqr_owner, pqr_type, subject, message, state, category( category )`).eq('state', 'reviwing');
 
+    if (errorDoing) {
+      console.error('Error al consultar la base de datos:', errorDoing.message);
+      return { data: [], error: null };
+    }
+
+    if (dataDoing && dataDoing.length > 0) {
+      const Tasks1: Task[] = dataDoing.map((item) => ({
+        id: item.id,
+        columnId: 'reviwing',
+        content: item.message,
+        category: item.category,
+        subject: item.subject,
+        state: item.state,
+      }));
+      // Push
+      defaultTasks1 = Tasks1;
+      console.log('Fetch Data:', defaultTasks1);
+      return { data: Tasks1, error: null };
+    } else {
+      return { data: [], error: null };
+    }
+  } catch (error) {
+    console.error('Error:', error.message);
+    return { data: [], error };
+  }
+}
+fetchDataFromDatabase();
 // Traer las tareas Done
 const { data: dataDone, error: errorDone } = await client
   .from('pqr_form')
   .select(
     `id, pqr_owner, pqr_type, subject, message, state, category( category )`
   )
-  .eq('tablero', 'done');
+  .eq('state', 'done');
 
 if (errorDone) {
   console.error('Error al consultar la base de datos:', errorDone.message);
@@ -183,6 +153,8 @@ if (dataDone && dataDone.length > 0) {
       columnId: 'done',
       content: item.message,
       category: item.category,
+      subject: item.subject,
+      state: item.state,
     });
   });
 }
@@ -191,23 +163,29 @@ if (dataDone && dataDone.length > 0) {
 defaultTasks = [...defaultTasks, ...defaultTasks1, ...defaultTasks2];
 
 // Realiza la actualización en la base de datos del campo tablero
+
 async function actualizarCampoTablero(
   taskId: number,
   nuevoValorTablero: string
 ) {
+  fetchDataFromDatabase();
+  // isChanged = true
   try {
+  
+
     const { data, error } = await client
       .from('pqr_form')
-      .update({ tablero: nuevoValorTablero })
+      .update({ state: nuevoValorTablero })
       .eq('id', taskId);
-
+    
     if (error) {
-      console.error('Error al actualizar el campo tablero:', error.message);
+      console.error('Error al actualizar el campo state:', error.message);
       return null;
     }
 
     if (data) {
-      console.log('Campo tablero actualizado con éxito:', data);
+    
+      console.log('Campo state actualizado con éxito:', data);
       return data;
     }
   } catch (error) {
@@ -230,6 +208,7 @@ async function actualizarCampoMessage(taskId: number, nuevoMessage: string) {
     }
 
     if (data) {
+      
       console.log('Campo message actualizado con éxito:', data);
       return data;
     }
@@ -355,6 +334,8 @@ function KanbanBoard(): JSX.Element {
       columnId,
       content: `Task ${tasks.length + 1}`,
       category: 'Abierto',
+      subject: '',
+      state: '',
     };
     setTasks([...tasks, newTask]);
   }
@@ -377,8 +358,7 @@ function KanbanBoard(): JSX.Element {
     nuevoMessage = content;
     taskId = id;
 
-    // console.log('content: ',content);
-    actualizarCampoMessage(taskId, nuevoMessage);
+    // actualizarCampoMessage(taskId, nuevoMessage);
     setTasks(newTasks);
   }
 
@@ -473,6 +453,7 @@ function KanbanBoard(): JSX.Element {
         taskId = tasks[activeIndex].id;
         nuevoValorTablero = tasks[overIndex].columnId;
 
+
         if (tasks[activeIndex].columnId != tasks[overIndex].columnId) {
           tasks[activeIndex].columnId = tasks[overIndex].columnId;
           return arrayMove(tasks, activeIndex, overIndex - 1);
@@ -499,9 +480,12 @@ function KanbanBoard(): JSX.Element {
         console.log('Arrastrar tarea sobre una columna', { activeIndex });
         taskId = tasks[activeIndex].id;
         nuevoValorTablero = tasks[activeIndex].columnId;
+        
         return arrayMove(tasks, activeIndex, activeIndex);
       });
       actualizarCampoTablero(taskId, nuevoValorTablero);
+      
+    
     }
   }
 }

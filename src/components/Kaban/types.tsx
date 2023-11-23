@@ -10,6 +10,8 @@ export type Task = {
   columnId: Id;
   content: string;
   category: string | any;
+  subject: string;
+  state: string;
 };
 
 export type Task1 = {
@@ -21,3 +23,9 @@ export type Task1 = {
 export type Task2 = {
   id: Id;
 };
+
+export type Task3 = {
+  state: string;
+  id: Id;
+};
+
