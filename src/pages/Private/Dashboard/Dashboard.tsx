@@ -13,10 +13,12 @@ import {
 import { Li } from '@/components/Li/Li';
 import { Separator } from '@/components/ui/separator';
 import KanbanBoard from '@/components/Kaban/KanbanBoard';
-
+import Inbox from '@/components/Inbox/Inbox';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Icon } from '@/components/Icon/Icon';
 import { UserKPI } from '@/components/KPI/KPI';
+import Chart from '@/components/Chart/Chart';
+import CardShareLink from '@/components/CardSharLink/CardShareLink';
 
 export default function Dashboard() {
   /**
@@ -49,7 +51,7 @@ export default function Dashboard() {
 
         break;
       case 'Inbox':
-        return <>Inbox</>;
+        return <Inbox></Inbox>;
 
         break;
       default:
@@ -120,7 +122,7 @@ export default function Dashboard() {
             <div onClick={() => setSection('Inbox')}>
               <Li
                 text="Inbox"
-                number={3}
+                number={7}
                 icon={<Tray size={23} weight="bold"></Tray>}
                 short={!open}
               ></Li>
@@ -135,9 +137,6 @@ export default function Dashboard() {
         </div>
         <div className="bg-[#f9fafb] p-8 h-full w-full">
           <div className=" bg-white shadow-sm border h-full rounded-md p-5 ">
-            {/* Paginas  */}
-            {/* <DashboardHome></DashboardHome> */}
-            {/* <KanbanBoard></KanbanBoard> */}
             {setSectionOpen()}
           </div>
         </div>
@@ -151,8 +150,12 @@ const DashboardHome = (): JSX.Element => {
     <div className="flex flex-col gap-16">
       <UserKPI></UserKPI>
       <div className="  flex w-full h-full gap-10 ">
-        <div className="bg-white w-3/5 rounded-md border">{/* chart */}</div>
-        <div className="bg-white w-2/5 rounded-md border">{/* users */}</div>
+        <div className="bg-white w-3/5 rounded-md border">
+          <Chart></Chart>
+        </div>
+        <div className="bg-white w-2/5 rounded-md border">
+          <CardShareLink></CardShareLink>
+        </div>
       </div>
     </div>
   );

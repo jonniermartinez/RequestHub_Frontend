@@ -1,24 +1,28 @@
+import { pqrQuantity } from '@/utilities/getTotalPqrs';
+
+const data = await pqrQuantity();
+
 export const UserKPI = (): JSX.Element => {
   return (
     <div className="flex gap-10">
       <Card
-        textPrincipal="324323"
-        texSecundary="jonnier"
+        textPrincipal={data?.length}
+        texSecundary="Total PQR's"
         className=" bg-blue-200"
       ></Card>
       <Card
         textPrincipal="324323"
-        texSecundary="jonnier"
+        texSecundary="Total of Users"
         className=" bg-green-200"
       ></Card>
       <Card
         textPrincipal="324323"
-        texSecundary="jonnier"
+        texSecundary="Total Claims"
         className=" bg-yellow-200"
       ></Card>
       <Card
         textPrincipal="324323"
-        texSecundary="jonnier"
+        texSecundary="Open Pqrs"
         className=" bg-slate-200"
       ></Card>
     </div>
@@ -26,7 +30,7 @@ export const UserKPI = (): JSX.Element => {
 };
 
 interface CardProps {
-  textPrincipal: string;
+  textPrincipal: string | number | undefined;
   texSecundary: string;
   className?: string;
 }
