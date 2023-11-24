@@ -8,6 +8,7 @@ import {
   Command,
   Tray,
   Kanban,
+  SignOut,
   Info,
 } from '@phosphor-icons/react';
 import { Li } from '@/components/Li/Li';
@@ -19,6 +20,8 @@ import { UserKPI } from '@/components/KPI/KPI';
 import Chart from '@/components/Chart/Chart';
 import CardShareLink from '@/components/CardSharLink/CardShareLink';
 import KanbanBoard from '@/components/Kaban/KanbanBoard';
+import { LogOut } from '@/components';
+
 export default function Dashboard() {
   /**
    * Hacer que cada link muestre un componente distinto
@@ -127,11 +130,24 @@ export default function Dashboard() {
               ></Li>
             </div>
             <Separator />
-            <Li
-              text="Help"
-              short={!open}
-              icon={<Info size={23} weight="bold"></Info>}
-            ></Li>
+            <a
+              href="https://twitter.com/jonniermartinez"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Li
+                text="Help"
+                short={!open}
+                icon={<Info size={23} weight="bold"></Info>}
+              ></Li>
+            </a>
+            <LogOut>
+              <Li
+                text="LogOut"
+                short={!open}
+                icon={<SignOut size={23} weight="bold"></SignOut>}
+              ></Li>
+            </LogOut>
           </ul>
         </div>
         <div className="bg-[#f9fafb] p-8 h-full w-full">

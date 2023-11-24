@@ -1,11 +1,13 @@
-import { client } from "@/supabase";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
-import { PublicRoutes } from "@/models";
-import { useDispatch } from "react-redux";
-import { resetUser } from "@/redux/states/userSlice";
+import { client } from '@/supabase';
+import { useNavigate } from 'react-router-dom';
+import { PublicRoutes } from '@/models';
+import { useDispatch } from 'react-redux';
+import { resetUser } from '@/redux/states/userSlice';
 
-function LogOut() {
+interface LogOutProps {
+  children: JSX.Element;
+}
+function LogOut({ children }: LogOutProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -17,6 +19,6 @@ function LogOut() {
     console.log(error);
   };
 
-  return <Button onClick={handleClick}>LogOut</Button>;
+  return <div onClick={handleClick}>{children}</div>;
 }
 export default LogOut;

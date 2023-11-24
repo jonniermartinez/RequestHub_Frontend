@@ -1,4 +1,4 @@
-import { Container } from "..";
+import { Container } from '..';
 function Testimonios() {
   return (
     <div className="text-gray-600 dark:text-gray-300 mt-40" id="reviews">
@@ -29,13 +29,10 @@ function Testimonios() {
               </div>
             </div>
             <p className="mt-8">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum
-              aliquid quo eum quae quos illo earum ipsa doloribus nostrum minus
-              libero aspernatur laborum cum, a suscipit, ratione ea totam ullam!
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Architecto laboriosam deleniti aperiam ab veniam sint non cumque
-              quis tempore cupiditate. Sint libero voluptas veniam at
-              reprehenderit, veritatis harum et rerum.
+              Since implementing RequestHub, we've seen a substantial
+              improvement in claim management efficiency. This has translated
+              into cost savings and higher customer satisfaction. A truly
+              positive change for our company!
             </p>
           </div>
           <div className="aspect-auto p-8 border border-gray-100 rounded-3xl bg-white dark:bg-gray-800 dark:border-gray-700 shadow-2xl shadow-gray-600/10 dark:shadow-none">
@@ -58,10 +55,11 @@ function Testimonios() {
               </div>
             </div>
             <p className="mt-8">
-              {" "}
-              Lorem ipsum dolor laboriosam deleniti aperiam ab veniam sint non
-              cumque quis tempore cupiditate. Sint libero voluptas veniam at
-              reprehenderit, veritatis harum et rerum.
+              {' '}
+              RequestHub has been a godsend for my business. Managing claims
+              used to be a headache, but now, with this platform, everything is
+              much easier and quicker. Thank you for simplifying this task for
+              us!
             </p>
           </div>
           <div className="aspect-auto p-8 border border-gray-100 rounded-3xl bg-white dark:bg-gray-800 dark:border-gray-700 shadow-2xl shadow-gray-600/10 dark:shadow-none">
@@ -84,10 +82,10 @@ function Testimonios() {
               </div>
             </div>
             <p className="mt-8">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Architecto laboriosam deleniti aperiam ab veniam sint non cumque
-              quis tempore cupiditate. Sint libero voluptas veniam at
-              reprehenderit, veritatis harum et rerum.
+              The transition to RequestHub has been incredibly smooth. Our
+              customer service team can now resolve claims faster and with
+              greater accuracy. This tool has elevated our quality of customer
+              care
             </p>
           </div>
           <div className="aspect-auto p-8 border border-gray-100 rounded-3xl bg-white dark:bg-gray-800 dark:border-gray-700 shadow-2xl shadow-gray-600/10 dark:shadow-none">
@@ -110,10 +108,10 @@ function Testimonios() {
               </div>
             </div>
             <p className="mt-8">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Architecto laboriosam deleniti aperiam ab veniam sint non cumque
-              quis tempore cupiditate. Sint libero voluptas veniam at
-              reprehenderit, veritatis harum et rerum.
+              As someone responsible for operations, I'm always looking for ways
+              to enhance efficiency. RequestHub has not only optimized our claim
+              management but also simplified our internal processes. A great
+              boost for our company!
             </p>
           </div>
           <div className="aspect-auto p-8 border border-gray-100 rounded-3xl bg-white dark:bg-gray-800 dark:border-gray-700 shadow-2xl shadow-gray-600/10 dark:shadow-none">
@@ -136,11 +134,11 @@ function Testimonios() {
               </div>
             </div>
             <p className="mt-8">
-              {" "}
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Architecto laboriosam deleniti aperiam ab veniam sint non cumque
-              quis tempore cupiditate. Sint libero voluptas veniam at
-              reprehenderit, veritatis harum et rerum.
+              {' '}
+              Efficiently managing claims is crucial to maintaining customer
+              satisfaction. With RequestHub, we've drastically improved our
+              ability to address issues quickly and effectively, which has had a
+              positive impact on our sales and customer retention.
             </p>
           </div>
           <div className="aspect-auto p-8 border border-gray-100 rounded-3xl bg-white dark:bg-gray-800 dark:border-gray-700 shadow-2xl shadow-gray-600/10 dark:shadow-none">
@@ -163,10 +161,10 @@ function Testimonios() {
               </div>
             </div>
             <p className="mt-8">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Architecto laboriosam deleniti aperiam ab veniam sint non cumque
-              quis tempore cupiditate. Sint libero voluptas veniam at
-              reprehenderit, veritatis harum et rerum.
+              The transition to RequestHub has been incredibly smooth. Our
+              customer service team can now resolve claims faster and with
+              greater accuracy. This tool has elevated our quality of customer
+              care.
             </p>
           </div>
         </div>
