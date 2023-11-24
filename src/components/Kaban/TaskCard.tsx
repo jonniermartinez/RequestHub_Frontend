@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Id, Task } from "./types";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import { client } from "@/supabase";
-import { Task1, Task2, Task3 } from "./types";
+import { useState } from 'react';
+import { Id, Task } from './types';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { client } from '@/supabase';
+import { Task1, Task2, Task3 } from './types';
 import type { Id as CategoryIdType } from './types';
 
 interface Props {
@@ -11,7 +11,6 @@ interface Props {
   deleteTask: (id: Id) => void;
   updateTask: (id: Id, content: string) => void;
 }
-
 
 // AGREGADO
 let defaultTasks: Task1[] = [];
@@ -23,7 +22,9 @@ let stateData: Task3[] = [];
 // Traer las tareas To do
 const { data: dataTodo, error: errorTodo } = await client
   .from('pqr_form')
-  .select(`id, pqr_owner, pqr_type, subject, message, state, category( category )`)
+  .select(
+    `id, pqr_owner, pqr_type, subject, message, state, category( category )`
+  )
   .eq('state', 'open');
 
 if (errorTodo) {
@@ -32,19 +33,20 @@ if (errorTodo) {
 
 if (dataTodo && dataTodo.length > 0) {
   defaultTasks = [];
-  dataTodo.forEach(item => {
+  dataTodo.forEach((item) => {
     defaultTasks.push({
       id: item.id,
       category: item.category,
-    })
-
+    });
   });
 }
 
 // Traer las tareas doing
 const { data: dataDoing, error: errorDoing } = await client
   .from('pqr_form')
-  .select(`id, pqr_owner, pqr_type, subject, message, state, category( category )`)
+  .select(
+    `id, pqr_owner, pqr_type, subject, message, state, category( category )`
+  )
   .eq('state', 'reviwing');
 
 if (errorDoing) {
@@ -53,21 +55,20 @@ if (errorDoing) {
 
 if (dataDoing && dataDoing.length > 0) {
   defaultTasks1 = [];
-  dataDoing.forEach(item => {
+  dataDoing.forEach((item) => {
     defaultTasks1.push({
       id: item.id,
-      category: item.category
-    })
-
+      category: item.category,
+    });
   });
 }
-
-
 
 // Traer las tareas done
 const { data: dataDone, error: errorDone } = await client
   .from('pqr_form')
-  .select(`id, pqr_owner, pqr_type, subject, message, state, category( category )`)
+  .select(
+    `id, pqr_owner, pqr_type, subject, message, state, category( category )`
+  )
   .eq('state', 'done');
 
 if (errorDone) {
@@ -76,13 +77,12 @@ if (errorDone) {
 
 if (dataDone && dataDone.length > 0) {
   defaultTasks2 = [];
-  dataDone.forEach(item => {
+  dataDone.forEach((item) => {
     defaultTasks2.push({
       id: item.id,
-      category: item.category
-    })
+      category: item.category,
+    });
   });
-
 }
 
 // TRAER TODAS LAS CATEGORIAS DE LA DB
@@ -96,13 +96,12 @@ if (errorCategory) {
 
 if (dataCategory && dataCategory.length > 0) {
   categorysData = [];
-  dataCategory.forEach(item => {
+  dataCategory.forEach((item) => {
     categorysData.push({
       id: item.id,
-      category: item.category
-    })
+      category: item.category,
+    });
   });
-
 }
 
 // TRAER TODAS LAS CATEGORIAS DE LA DB
@@ -116,13 +115,12 @@ if (errorState) {
 
 if (dataState && dataState.length > 0) {
   categorysData = [];
-  dataState.forEach(item => {
+  dataState.forEach((item) => {
     stateData.push({
       state: item.state,
       id: item.id,
-    })
+    });
   });
-
 }
 
 defaultTasks = [...defaultTasks, ...defaultTasks1, ...defaultTasks2];
@@ -130,7 +128,6 @@ defaultTasks = [...defaultTasks, ...defaultTasks1, ...defaultTasks2];
 console.log('stateData: ', stateData);
 
 const getCategotyIdByName = async (catName: String) => {
-
   // try {
   const { data: dataCat, error: errorCat } = await client
     .from('category')
@@ -142,44 +139,16 @@ const getCategotyIdByName = async (catName: String) => {
   }
 
   return dataCat;
+};
 
-}
-
-
-
-const updateState = async (newState: String) => {
-  // try {
-  //   const { data, error } = await client
-  //     .from('pqr_form')
-  //     .update({ state: newState })
-  //     .eq('id', task.id);
-
-  //   if (error) {
-  //     console.error('Error al actualizar el campo state:', error.message);
-  //     return null;
-  //   }
-
-  //   if (data) {
-  //     console.log('Campo state actualizado con éxito:', data);
-  //     return data;
-  //   }
-  // } catch (error) {
-  //   console.error('Error inesperado:', error.message);
-  //   return null;
-  // }
-
-}
-
-
-function TaskCard({task, deleteTask, updateTask }: Props) {
-
+function TaskCard({ task, deleteTask, updateTask }: Props) {
   const [mouseIsOver, setMouseIsOver] = useState(false);
   const [editMode, setEditMode] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [categoryId, setCategoryId] = useState<CategoryIdType>('');
 
-  const categorias = defaultTasks.find(item => item.id === task.id)?.category;
-  const stateDat = stateData.find(item => item.id !== task.id)?.state;
+  const categorias = defaultTasks.find((item) => item.id === task.id)?.category;
+  const stateDat = stateData.find((item) => item.id !== task.id)?.state;
 
   // Función pra actualizar la categoría en la base de datos
   async function updateCategoryInDatabase(catId: Id) {
@@ -188,13 +157,12 @@ function TaskCard({task, deleteTask, updateTask }: Props) {
     try {
       const { data, error } = await client
         .from('pqr_form')
-        .update({ pqr_type: catId, })
+        .update({ pqr_type: catId })
         .eq('id', task.id);
 
       if (error) {
         console.error('Error al actualizar la categoría:', error.message);
       } else {
-        
       }
     } catch (error) {
       console.error('Error al actualizar la categoría:', error.message);
@@ -211,7 +179,7 @@ function TaskCard({task, deleteTask, updateTask }: Props) {
   } = useSortable({
     id: task.id,
     data: {
-      type: "Task",
+      type: 'Task',
       task,
     },
     disabled: editMode,
@@ -237,7 +205,7 @@ function TaskCard({task, deleteTask, updateTask }: Props) {
         opacity-30
         bg-mainBackgroundColor p-2.5 h-[200px] min-h-[200px] items-center flex text-left rounded-xl border-dashed border-2 border-gray-400 cursor-grab relative
         "
-      // bg-mainBackgroundColor p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl border-dashed border-2 border-gray-400 cursor-grab relative
+        // bg-mainBackgroundColor p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl border-dashed border-2 border-gray-400 cursor-grab relative
       />
     );
   }
@@ -252,7 +220,7 @@ function TaskCard({task, deleteTask, updateTask }: Props) {
         // TAREA INDIVUAL BORDES
         className="border-task bg-
         BackgroundColor p-2.5 h-[200px] min-h-[200px] items-center flex text-left rounded-xl cursor-grab relative"
-      // BackgroundColor p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl cursor-grab relative"
+        // BackgroundColor p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl cursor-grab relative"
       >
         <textarea
           // h-[90%]
@@ -265,14 +233,13 @@ function TaskCard({task, deleteTask, updateTask }: Props) {
           placeholder="Task content here"
           onBlur={toggleEditMode}
           onKeyDown={(e) => {
-            if (e.key === "Enter" && e.shiftKey) {
+            if (e.key === 'Enter' && e.shiftKey) {
               toggleEditMode();
             }
           }}
           onChange={(e) => updateTask(task.id, e.target.value)}
         />
       </div>
-
     );
   }
 
@@ -289,9 +256,8 @@ function TaskCard({task, deleteTask, updateTask }: Props) {
     } catch (error) {
       console.error('Error al manejar la selección:', error);
     }
-  }
+  };
 
-  
   // ACTUALIZAR ESTADO
   const setState = async (newState: string) => {
     try {
@@ -299,21 +265,20 @@ function TaskCard({task, deleteTask, updateTask }: Props) {
         // Solo realiza la actualización si el nuevo estado es diferente al estado actual
         await updateState(newState);
       } else {
-        console.log('El estado no ha cambiado, no es necesario actualizar la base de datos.');
+        console.log(
+          'El estado no ha cambiado, no es necesario actualizar la base de datos.'
+        );
       }
     } catch (error) {
       console.error('Error al manejar la actualización de estado:', error);
     }
-  }
+  };
 
   // console.log('currentState: ',currentState);
-  
-  
 
   // if (currentState) {
   //   setState(currentState);
   // }
-
 
   return (
     <div
@@ -321,7 +286,7 @@ function TaskCard({task, deleteTask, updateTask }: Props) {
       style={style}
       {...attributes}
       {...listeners}
-      onClick={toggleEditMode}
+      // onClick={toggleEditMode}
       //   Contenedor de tareas individuales
       // className="task-content bg-mainBackgroundColor p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl cursor-grab relfative task"
       className="task-content bg-mainBackgroundColor p-2.5 h-[200px] min-h-[200px] items-center flex text-left rounded-xl cursor-grab relative task"
@@ -332,117 +297,22 @@ function TaskCard({task, deleteTask, updateTask }: Props) {
         setMouseIsOver(false);
       }}
     >
-
-      <div className="all-content">
-        <div>
-          {/* {categorysData.map((category) => {
-          return ( */}
-          <span
-            className="btn-cat h-[30px] w-[90px] justify-center inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
-            key={task.id}
-          >{categorias?.category}</span>
-
-
-
-
-
-
-
-
-          {/* STATEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE */}
-          {/* <div className="content-state"> */}
-
-          {/* {stateData.map(item => (
-          <span className="span-cat h-[30px] w-[90px] justify-center inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
-            // key={item.id}
-            defaultValue={task.state}
-            onVolumeChange={() =>{
-              setState(item.state);
-            }}
-            >
-            {task.id}
-          </span>
-            ))} */}
-
-          {/* {currentState && ( */}
-            <span
-              className="span-cat h-[30px] w-[90px] justify-center inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
-              // defaultValue={task.state}
-            >
-              {task.state}
-            </span>
-          {/* )} */}
-
-          {/* </div> */}
-        </div>
-
-        <div className="content-opcions">
-          <div className="subject-content font-bold">
-            {task.subject}
-          </div>
-
-          {/* ESTADO */}
-          {/* <div className="subject-content"> */}
-
-          {/* <div className="pqr-opcion">
-              <Select onValueChange={(value: string) => {
-                handletSelect(value);
-              }}>
-                <SelectTrigger className="h-[35px] w-[180px]">
-                  <SelectValue key={task.id}
-                    placeholder={categorias?.category}
-                  />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Categorías</SelectLabel>
-                    {categorysData.map((category) => {
-                      return (
-                        <SelectItem
-                          key={category.id}
-                          value={category.category}
-                        >
-                          {category.category}
-                        </SelectItem>
-                      )
-                    })}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div> */}
-          {/* </div> */}
-          <div className="contentState">
-            {/* <span className="span-cat h-[30px] w-[90px] justify-center inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
-            key={task.id}
-            onClick={() => setState(task.state)}
-            >
-              {task.state}
-            </span> */}
-          </div>
-        </div>
-        {/* {mouseIsOver && ( */}
-
-        {/* )} */}
-        <div className="content-message">
+      <div className="">
+        <div className="">
+          <div className="subject-content font-bold">{task.subject}</div>
           <p className="my-auto h-[90%] w-[90%] overflow-y-auto overflow-x-hidden whitespace-pre-wrap">
             {/* {task.content} */}
             {task.content}
           </p>
+          <span
+            className="btn-cat h-[30px] w-[90px] justify-center inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
+            key={task.id}
+          >
+            {categorias?.category}
+          </span>
         </div>
-      </div >
-
-      {/* {mouseIsOver && ( */}
-      {/* <button
-        onClick={() => {
-          deleteTask(task.id);
-        }}
-        // ELIMINAR TAREA
-        className="btn-opciones stroke-black absolute right-3 -translate-y-1/2 bg-columnBackgroundColor p-1 rounded opacity-60 hover:opacity-100"
-      >
-        <TrashIcon />
-      </button> */}
-      {/* )} */}
-    </div >
+      </div>
+    </div>
   );
 }
 

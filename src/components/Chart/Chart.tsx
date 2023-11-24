@@ -6,12 +6,14 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  AreaChart,
+  Area,
 } from 'recharts';
 import { pqrQuantity } from '@/utilities/getTotalPqrs';
 
 interface ChartData {
   date: string;
-  Sara: number;
+  pqr: number;
 }
 
 interface Props {
@@ -32,7 +34,7 @@ const createChartData = (data: Props['data']): ChartData[] => {
 
   return Object.keys(dataByDate).map((date) => ({
     date,
-    Sara: dataByDate[date],
+    pqr: dataByDate[date],
   }));
 };
 
@@ -43,15 +45,29 @@ export default function Chart() {
 
   return (
     <div>
-      <h2>Gráfico de Cantidad de Elementos por Fecha</h2>
-      <BarChart width={600} height={300} data={chartData}>
+      <h2>Pqr Quantity Chart by Date</h2>
+      <AreaChart width={600} height={300} data={chartData}>
+        <defs>
+          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+            <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+          </linearGradient>
+        </defs>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="date" />
-        <YAxis />
+        <XAxis dataKey="date" tick={false} />
+        <YAxis tickSize={0} />
         <Tooltip />
         <Legend />
-        <Bar dataKey="Sara" fill="#8884d8" />
-      </BarChart>
+        {/* <Bar dataKey="pqr" fill="#8884d8" /> */}
+        <Area
+          hide={false}
+          type="monotone"
+          dataKey="pqr"
+          stroke="#8884d8"
+          fillOpacity={1}
+          fill="url(#colorUv)"
+        />
+      </AreaChart>
     </div>
   );
 }

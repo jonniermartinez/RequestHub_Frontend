@@ -16,7 +16,6 @@ import {
 } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { createPortal } from 'react-dom';
-import TaskCard from './TaskCard';
 
 const defaultCols: Column[] = [
   {
@@ -63,46 +62,19 @@ if (dataTodo && dataTodo.length > 0) {
   });
 }
 
-
-// Traer las tareas Doing/ In progress
-// const { data: dataDoing, error: errorDoing } = await client
-//   .from('pqr_form')
-//   .select(
-//     `id, pqr_owner, pqr_type, subject, message, state, category( category )`
-//   )
-//   .eq('state', 'reviwing');
-
-// if (errorDoing) {
-//   console.error('Error al consultar la base de datos:', errorDoing.message);
-// }
-
-// if (dataDoing && dataDoing.length > 0) {
-//   defaultTasks1 = [];
-//   dataDoing.forEach((item) => {
-//     // console.log(item.message);
-//     // console.log(item.id);
-//     defaultTasks1.push({
-//       id: item.id,
-//       columnId: 'reviwing',
-//       content: item.message,
-//       category: item.category,
-//       subject: item.subject,
-//       state: item.state,
-//     });
-//   });
-// }
 interface DatabaseResponse {
   data: Task[];
   error: Error | null;
 }
 
 async function fetchDataFromDatabase(): Promise<DatabaseResponse> {
- 
-  
   try {
     const { data: dataDoing, error: errorDoing } = await client
       .from('pqr_form')
-      .select(`id, pqr_owner, pqr_type, subject, message, state, category( category )`).eq('state', 'reviwing');
+      .select(
+        `id, pqr_owner, pqr_type, subject, message, state, category( category )`
+      )
+      .eq('state', 'reviwing');
 
     if (errorDoing) {
       console.error('Error al consultar la base de datos:', errorDoing.message);
@@ -162,64 +134,7 @@ if (dataDone && dataDone.length > 0) {
 // Agregar todos las pqrs para agregar a los tableros
 defaultTasks = [...defaultTasks, ...defaultTasks1, ...defaultTasks2];
 
-// Realiza la actualización en la base de datos del campo tablero
-
-async function actualizarCampoTablero(
-  taskId: number,
-  nuevoValorTablero: string
-) {
-  fetchDataFromDatabase();
-  // isChanged = true
-  try {
-  
-
-    const { data, error } = await client
-      .from('pqr_form')
-      .update({ state: nuevoValorTablero })
-      .eq('id', taskId);
-    
-    if (error) {
-      console.error('Error al actualizar el campo state:', error.message);
-      return null;
-    }
-
-    if (data) {
-    
-      console.log('Campo state actualizado con éxito:', data);
-      return data;
-    }
-  } catch (error) {
-    console.error('Error inesperado:', error.message);
-    return null;
-  }
-}
-
-// ACTUALIZAR CONTENIDO EN LA BASE DE DATOS
-async function actualizarCampoMessage(taskId: number, nuevoMessage: string) {
-  try {
-    const { data, error } = await client
-      .from('pqr_form')
-      .update({ message: nuevoMessage })
-      .eq('id', taskId);
-
-    if (error) {
-      console.error('Error al actualizar el campo message:', error.message);
-      return null;
-    }
-
-    if (data) {
-      
-      console.log('Campo message actualizado con éxito:', data);
-      return data;
-    }
-  } catch (error) {
-    console.error('Error inesperado:', error.message);
-    return null;
-  }
-}
-
 function KanbanBoard(): JSX.Element {
-  // Realiza la consulta SELECT
   const [columns, setColumns] = useState<Column[]>(defaultCols);
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
 
@@ -240,14 +155,7 @@ function KanbanBoard(): JSX.Element {
   return (
     <div
       // CONTENEDOR DE TODO
-      className="
-        kabanContainer
-        m-auto
-        flex
-        overflow-x-auto
-        w-full
-         h-full
-    "
+      className="kabanContainer m-auto flex overflow-x-auto w-full h-full"
     >
       <DndContext
         sensors={sensors}
@@ -272,29 +180,6 @@ function KanbanBoard(): JSX.Element {
               ))}
             </SortableContext>
           </div>
-          {/* <button
-            onClick={() => {
-              createNewColumn();
-            }}
-            // AGREGAR COLUMNA
-            className="
-      h-[60px]
-      w-[350px]
-      min-w-[350px]
-      cursor-pointer
-      rounded-lg
-      bg-mainBackgroundColor
-      border-2
-      border-columnBackgroundColor
-      p-4
-      hover:ring-2
-      flex
-      gap-2
-      "
-          >
-            <PlusIcon />
-            Add Column
-          </button> */}
         </div>
 
         {createPortal(
@@ -312,13 +197,6 @@ function KanbanBoard(): JSX.Element {
                 )}
               />
             )}
-            {activeTask && (
-              <TaskCard
-                task={activeTask}
-                deleteTask={deleteTask}
-                updateTask={updateTask}
-              />
-            )}
           </DragOverlay>,
           document.body
         )}
@@ -327,7 +205,6 @@ function KanbanBoard(): JSX.Element {
   );
 
   // CREAR NUEVA TAREA
-
   function createTask(columnId: Id) {
     const newTask: Task = {
       id: generateId(),
@@ -453,7 +330,6 @@ function KanbanBoard(): JSX.Element {
         taskId = tasks[activeIndex].id;
         nuevoValorTablero = tasks[overIndex].columnId;
 
-
         if (tasks[activeIndex].columnId != tasks[overIndex].columnId) {
           tasks[activeIndex].columnId = tasks[overIndex].columnId;
           return arrayMove(tasks, activeIndex, overIndex - 1);
@@ -480,12 +356,10 @@ function KanbanBoard(): JSX.Element {
         console.log('Arrastrar tarea sobre una columna', { activeIndex });
         taskId = tasks[activeIndex].id;
         nuevoValorTablero = tasks[activeIndex].columnId;
-        
+
         return arrayMove(tasks, activeIndex, activeIndex);
       });
       actualizarCampoTablero(taskId, nuevoValorTablero);
-      
-    
     }
   }
 }
@@ -496,3 +370,31 @@ function generateId() {
 }
 
 export default KanbanBoard;
+
+// Realiza la actualización en la base de datos del campo tablero
+async function actualizarCampoTablero(
+  taskId: number,
+  nuevoValorTablero: string
+) {
+  fetchDataFromDatabase();
+  // isChanged = true
+  try {
+    const { data, error } = await client
+      .from('pqr_form')
+      .update({ state: nuevoValorTablero })
+      .eq('id', taskId);
+
+    if (error) {
+      console.error('Error al actualizar el campo state:', error.message);
+      return null;
+    }
+
+    if (data) {
+      console.log('Campo state actualizado con éxito:', data);
+      return data;
+    }
+  } catch (error) {
+    console.error('Error inesperado:', error.message);
+    return null;
+  }
+}

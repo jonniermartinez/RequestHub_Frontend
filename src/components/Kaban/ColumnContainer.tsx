@@ -1,5 +1,4 @@
 import { SortableContext, useSortable } from '@dnd-kit/sortable';
-import TrashIcon from './icon/TrashIcon';
 import { Column, Id, Task } from './types';
 import { CSS } from '@dnd-kit/utilities';
 import { useMemo, useState } from 'react';
@@ -18,9 +17,7 @@ interface Props {
 
 function ColumnContainer({
   column,
-  deleteColumn,
   updateColumn,
-  createTask,
   tasks,
   deleteTask,
   updateTask,
@@ -57,17 +54,7 @@ function ColumnContainer({
       <div
         ref={setNodeRef}
         style={style}
-        className="
-      bg-columnBackgroundColor
-      opacity-40
-      border-pink-500
-      w-[350px]
-      h-[500px]
-      max-h-[500px]
-      rounded-md
-      flex
-      flex-col
-      "
+        className="bg-columnBackgroundColor opacity-40 border-pink-500 w-[350px] h-[500px] max-h-[500px] rounded-md flex flex-col"
       ></div>
     );
   }
@@ -97,7 +84,6 @@ function ColumnContainer({
         className="
       bg-mainBackgroundColor
       text-md
-      h-[60px]
       cursor-grab
       rounded-md
       rounded-b-none

@@ -12,14 +12,13 @@ import {
 } from '@phosphor-icons/react';
 import { Li } from '@/components/Li/Li';
 import { Separator } from '@/components/ui/separator';
-import KanbanBoard from '@/components/Kaban/KanbanBoard';
 import Inbox from '@/components/Inbox/Inbox';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Icon } from '@/components/Icon/Icon';
 import { UserKPI } from '@/components/KPI/KPI';
 import Chart from '@/components/Chart/Chart';
 import CardShareLink from '@/components/CardSharLink/CardShareLink';
-
+import KanbanBoard from '@/components/Kaban/KanbanBoard';
 export default function Dashboard() {
   /**
    * Hacer que cada link muestre un componente distinto
