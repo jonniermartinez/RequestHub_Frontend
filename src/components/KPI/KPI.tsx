@@ -1,6 +1,15 @@
 import { pqrQuantity } from '@/utilities/getTotalPqrs';
 
+import {
+  getNumberOfClaims,
+  getNumberOfRequest,
+} from '@/utilities/getNumberOfClaims';
+import { getOpenPqrs } from '@/utilities/getOpenPqrs';
+
 const data = await pqrQuantity();
+const totalClaims = await getNumberOfClaims();
+const totalRequest = await getNumberOfRequest();
+const openPqrs = await getOpenPqrs();
 
 export const UserKPI = (): JSX.Element => {
   return (
@@ -11,17 +20,17 @@ export const UserKPI = (): JSX.Element => {
         className=" bg-blue-200"
       ></Card>
       <Card
-        textPrincipal="324323"
-        texSecundary="Total of Users"
-        className=" bg-green-200"
-      ></Card>
-      <Card
-        textPrincipal="324323"
+        textPrincipal={totalClaims?.toString()}
         texSecundary="Total Claims"
         className=" bg-yellow-200"
       ></Card>
       <Card
-        textPrincipal="324323"
+        textPrincipal={totalRequest?.toString()}
+        texSecundary="Total Request"
+        className=" bg-violet-200"
+      ></Card>
+      <Card
+        textPrincipal={openPqrs?.toString()}
         texSecundary="Open Pqrs"
         className=" bg-slate-200"
       ></Card>

@@ -32,9 +32,11 @@ function CardShareLink() {
           feedback and requests with us!
         </p>
 
-        <CopyToClipboard text={url}>
-          <Button>Copy Url</Button>
-        </CopyToClipboard>
+        <a target="_blank" href={url}>
+          <CopyToClipboard text={url}>
+            <Button>Copy Url</Button>
+          </CopyToClipboard>
+        </a>
       </div>
     </div>
   );
