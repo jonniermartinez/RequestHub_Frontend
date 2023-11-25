@@ -69,7 +69,9 @@ export default function Inbox(): JSX.Element {
               <TableCell>{item.subject}</TableCell>
               <TableCell>{item.message}</TableCell>
               <TableCell className="text-right">
-                {item.category.category}
+                {item.category.length > 0
+                  ? item.category[0].category
+                  : 'No category'}
               </TableCell>
             </TableRow>
           ))}

@@ -261,7 +261,7 @@ function TaskCard({ task, updateTask }: Props) {
     try {
       if (newState !== task.state) {
         // Solo realiza la actualización si el nuevo estado es diferente al estado actual
-        await updateState(newState);
+        await setState(newState);
       } else {
         console.log(
           'El estado no ha cambiado, no es necesario actualizar la base de datos.'

@@ -8,6 +8,7 @@ import {
   Area,
 } from 'recharts';
 import { pqrQuantity } from '@/utilities/getTotalPqrs';
+import { useEffect, useState } from 'react';
 
 interface ChartData {
   date: string;
@@ -36,11 +37,25 @@ const createChartData = (data: Props['data']): ChartData[] => {
   }));
 };
 
-const data = await pqrQuantity();
-
 export default function Chart() {
-  const chartData = createChartData(data);
+  const [chartData, setChartData] = useState<ChartData[]>([]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchedData = await pqrQuantity();
+        if (fetchedData) {
+          const processedData = createChartData(fetchedData);
+          setChartData(processedData);
+        }
+      } catch (error) {
+        // Manejar errores de la petición de datos
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <div>
       <h2>Pqr Quantity Chart by Date</h2>

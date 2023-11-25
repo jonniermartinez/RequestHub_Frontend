@@ -210,7 +210,7 @@ function KanbanBoard(): JSX.Element {
       id: generateId(),
       columnId,
       content: `Task ${tasks.length + 1}`,
-      category: 'Abierto',
+      category: [{ category: 'Abierto' }],
       subject: '',
       state: '',
     };
