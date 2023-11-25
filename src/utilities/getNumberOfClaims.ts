@@ -13,12 +13,10 @@ export const getNumberOfClaims = async () => {
       .eq('pqr_type', '2');
 
     if (error) {
-      console.error('Error al actualizar el campo message:', error.message);
       return [];
     }
 
     if (data) {
-      console.log('Campo message actualizado con éxito:', data);
       return data.length || [];
     }
   } catch (error) {
@@ -39,12 +37,10 @@ export const getNumberOfRequest = async () => {
       .eq('pqr_type', '4');
 
     if (error) {
-      console.error('Error al actualizar el campo message:', error.message);
       return [];
     }
 
     if (data) {
-      console.log('Campo message actualizado con éxito:', data);
       return data.length || [];
     }
   } catch (error) {

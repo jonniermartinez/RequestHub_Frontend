@@ -1,9 +1,8 @@
-import { useMemo, useState } from 'react';
-import { Column, Id, Task } from './types';
-import { client } from '@/supabase';
+import { useEffect, useMemo, useState } from 'react';
+import { Column, Task } from './types';
 import ColumnContainer from './ColumnContainer';
 import './style-kabanCompo.css';
-
+import { pqrQuantity } from '@/utilities/getTotalPqrs';
 import {
   DndContext,
   DragEndEvent,
@@ -32,118 +31,44 @@ const defaultCols: Column[] = [
   },
 ];
 
-let defaultTasks: Task[] = [];
-let defaultTasks1: Task[] = [];
-let defaultTasks2: Task[] = [];
-
-// Traer las tareas To do
-const { data: dataTodo, error: errorTodo } = await client
-  .from('pqr_form')
-  .select(
-    `id, pqr_owner, pqr_type, subject, message, state, category( category )`
-  )
-  .eq('state', 'open');
-
-if (errorTodo) {
-  console.error('Error al consultar la base de datos:', errorTodo.message);
-}
-
-if (dataTodo && dataTodo.length > 0) {
-  defaultTasks = [];
-  dataTodo.forEach((item) => {
-    defaultTasks.push({
-      id: item.id,
-      columnId: 'open',
-      content: item.message,
-      category: item.category,
-      subject: item.subject,
-      state: item.state,
-    });
-  });
-}
-
-interface DatabaseResponse {
-  data: Task[];
-  error: Error | null;
-}
-
-async function fetchDataFromDatabase(): Promise<DatabaseResponse> {
-  try {
-    const { data: dataDoing, error: errorDoing } = await client
-      .from('pqr_form')
-      .select(
-        `id, pqr_owner, pqr_type, subject, message, state, category( category )`
-      )
-      .eq('state', 'reviwing');
-
-    if (errorDoing) {
-      console.error('Error al consultar la base de datos:', errorDoing.message);
-      return { data: [], error: null };
-    }
-
-    if (dataDoing && dataDoing.length > 0) {
-      const Tasks1: Task[] = dataDoing.map((item) => ({
-        id: item.id,
-        columnId: 'reviwing',
-        content: item.message,
-        category: item.category,
-        subject: item.subject,
-        state: item.state,
-      }));
-      // Push
-      defaultTasks1 = Tasks1;
-      console.log('Fetch Data:', defaultTasks1);
-      return { data: Tasks1, error: null };
-    } else {
-      return { data: [], error: null };
-    }
-  } catch (error) {
-    console.error('Error:', error.message);
-    return { data: [], error };
-  }
-}
-fetchDataFromDatabase();
-// Traer las tareas Done
-const { data: dataDone, error: errorDone } = await client
-  .from('pqr_form')
-  .select(
-    `id, pqr_owner, pqr_type, subject, message, state, category( category )`
-  )
-  .eq('state', 'done');
-
-if (errorDone) {
-  console.error('Error al consultar la base de datos:', errorDone.message);
-}
-
-if (dataDone && dataDone.length > 0) {
-  defaultTasks2 = [];
-  dataDone.forEach((item) => {
-    // console.log(item.message);
-    // console.log(item.id);
-    defaultTasks2.push({
-      id: item.id,
-      columnId: 'done',
-      content: item.message,
-      category: item.category,
-      subject: item.subject,
-      state: item.state,
-    });
-  });
-}
-
-// Agregar todos las pqrs para agregar a los tableros
-defaultTasks = [...defaultTasks, ...defaultTasks1, ...defaultTasks2];
-
 function KanbanBoard(): JSX.Element {
   const [columns, setColumns] = useState<Column[]>(defaultCols);
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
 
-  const [tasks, setTasks] = useState<Task[]>(defaultTasks);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
 
   const [activeTask, setActiveTask] = useState<Task | null>(null);
   activeTask;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await pqrQuantity();
+      if (data !== undefined) {
+        const task: Task[] = [];
+        data.map((item) => {
+          task.push({
+            id: item.id,
+            columnId: item.state,
+            content: item.message,
+            category: 'Claim', // Define category as an array of objects with a 'category' string property
+            subject: item.subject,
+            state: item.state,
+          });
+        });
+        setTasks(task);
+        console.log(task);
+      } else {
+        // Manejar el caso en que pqrQuantity devuelve undefined
+        console.error('La función pqrQuantity devolvió undefined.');
+        // Puedes establecer un valor predeterminado o realizar otra lógica de manejo de errores aquí
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -153,33 +78,23 @@ function KanbanBoard(): JSX.Element {
   );
 
   return (
-    <div
-      // CONTENEDOR DE TODO
-      className="kabanContainer m-auto flex overflow-x-auto w-full h-full"
-    >
+    <div className="kabanContainer m-auto flex overflow-x-auto w-full h-full">
       <DndContext
         sensors={sensors}
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
         onDragOver={onDragOver}
       >
-        <div className=" gap-4">
-          <div className="flex gap-4">
-            <SortableContext items={columnsId}>
-              {columns.map((col) => (
-                <ColumnContainer
-                  key={col.id}
-                  column={col}
-                  deleteColumn={deleteColumn}
-                  updateColumn={updateColumn}
-                  createTask={createTask}
-                  deleteTask={deleteTask}
-                  updateTask={updateTask}
-                  tasks={tasks.filter((task) => task.columnId === col.id)}
-                />
-              ))}
-            </SortableContext>
-          </div>
+        <div className="flex gap-10 h-full">
+          <SortableContext items={columnsId}>
+            {columns.map((col) => (
+              <ColumnContainer
+                key={col.id}
+                column={col}
+                tasks={tasks.filter((task) => task.columnId === col.id)}
+              />
+            ))}
+          </SortableContext>
         </div>
 
         {createPortal(
@@ -187,11 +102,6 @@ function KanbanBoard(): JSX.Element {
             {activeColumn && (
               <ColumnContainer
                 column={activeColumn}
-                deleteColumn={deleteColumn}
-                updateColumn={updateColumn}
-                createTask={createTask}
-                deleteTask={deleteTask}
-                updateTask={updateTask}
                 tasks={tasks.filter(
                   (task) => task.columnId === activeColumn.id
                 )}
@@ -203,61 +113,6 @@ function KanbanBoard(): JSX.Element {
       </DndContext>
     </div>
   );
-
-  // CREAR NUEVA TAREA
-  function createTask(columnId: Id) {
-    const newTask: Task = {
-      id: generateId(),
-      columnId,
-      content: `Task ${tasks.length + 1}`,
-      category: [{ category: 'Abierto' }],
-      subject: '',
-      state: '',
-    };
-    setTasks([...tasks, newTask]);
-  }
-
-  function deleteTask(id: Id) {
-    const newTasks = tasks.filter((task) => task.id !== id);
-    setTasks(newTasks);
-  }
-
-  // ACTUALIZAR CONTENIDO DE LA TASK
-  function updateTask(id: Id, content: string) {
-    const newTasks = tasks.map((task) => {
-      if (task.id !== id) return task;
-      return { ...task, content };
-    });
-
-    // actualizarCampoMessage(taskId, nuevoMessage);
-    setTasks(newTasks);
-  }
-
-  // function createNewColumn() {
-  //   const columnToAdd: Column = {
-  //     id: generateId(),
-  //     title: `Column ${columns.length + 1}`,
-  //   };
-
-  //   setColumns([...columns, columnToAdd]);
-  // }
-
-  function deleteColumn(id: Id) {
-    const filteredColumns = columns.filter((col) => col.id !== id);
-    setColumns(filteredColumns);
-
-    const newTasks = tasks.filter((t) => t.columnId !== id);
-    setTasks(newTasks);
-  }
-
-  function updateColumn(id: Id, title: string) {
-    const newColumns = columns.map((col) => {
-      if (col.id !== id) return col;
-      return { ...col, title };
-    });
-
-    setColumns(newColumns);
-  }
 
   function onDragStart(event: DragStartEvent) {
     if (event.active.data.current?.type === 'Column') {
@@ -313,16 +168,9 @@ function KanbanBoard(): JSX.Element {
 
     // Im dropping a Task over another Task
     if (isActiveATask && isOverATask) {
-      let taskId: Id = '';
-      let nuevoValorTablero: Id = '';
-
       setTasks((tasks) => {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
         const overIndex = tasks.findIndex((t) => t.id === overId);
-
-        // AGREGADO
-        taskId = tasks[activeIndex].id;
-        nuevoValorTablero = tasks[overIndex].columnId;
 
         if (tasks[activeIndex].columnId != tasks[overIndex].columnId) {
           tasks[activeIndex].columnId = tasks[overIndex].columnId;
@@ -331,61 +179,22 @@ function KanbanBoard(): JSX.Element {
 
         return arrayMove(tasks, activeIndex, overIndex);
       });
-      actualizarCampoTablero(taskId, nuevoValorTablero);
-
-      actualizarCampoTablero(taskId, nuevoValorTablero);
     }
 
     const isOverAColumn = over.data.current?.type === 'Column';
 
     // Arrastrar tarea sobre una columna
     if (isActiveATask && isOverAColumn) {
-      let taskId: Id = '';
-      let nuevoValorTablero: Id = '';
-
       setTasks((tasks) => {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
         tasks[activeIndex].columnId = overId;
 
         console.log('Arrastrar tarea sobre una columna', { activeIndex });
-        taskId = tasks[activeIndex].id;
-        nuevoValorTablero = tasks[activeIndex].columnId;
 
         return arrayMove(tasks, activeIndex, activeIndex);
       });
-      actualizarCampoTablero(taskId, nuevoValorTablero);
     }
   }
-}
-
-function generateId() {
-  /* Generate a random number between 0 and 10000 */
-  return Math.floor(Math.random() * 10001);
 }
 
 export default KanbanBoard;
-
-// Realiza la actualización en la base de datos del campo tablero
-async function actualizarCampoTablero(taskId: Id, nuevoValorTablero: string) {
-  fetchDataFromDatabase();
-  // isChanged = true
-  try {
-    const { data, error } = await client
-      .from('pqr_form')
-      .update({ state: nuevoValorTablero })
-      .eq('id', taskId);
-
-    if (error) {
-      console.error('Error al actualizar el campo state:', error.message);
-      return null;
-    }
-
-    if (data) {
-      console.log('Campo state actualizado con éxito:', data);
-      return data;
-    }
-  } catch (error) {
-    console.error('Error inesperado:', error.message);
-    return null;
-  }
-}

@@ -9,35 +9,9 @@ import {
 } from '@/components/ui/table';
 import { client } from '@/supabase';
 import { getUserId } from '@/utilities/getUserId';
+import { useEffect, useState } from 'react';
 // Import statements remain the same
 
-// Function to retrieve the last 7 records from the database
-const getLast7Records = async () => {
-  const userId = await getUserId();
-
-  try {
-    const { data, error } = await client
-      .from('pqr_form')
-      .select('creation_time, message, subject, state, category(category)')
-      .eq('id_profile', userId)
-      .order('id', { ascending: false })
-      .limit(7);
-
-    if (error) {
-      console.error(error);
-      return []; // Return an empty array if an error occurs
-    }
-
-    return data || []; // Return data or an empty array
-  } catch (error) {
-    console.error(error);
-    return []; // Return an empty array in case of an exception
-  }
-};
-
-// Fetch the data and store it in a variable
-const data = await getLast7Records(); // Removed type annotation as it's inferred
-console.log(data);
 // Adjust the ItemInterface to handle the category field properly
 interface ItemInterface {
   creation_time: string;
@@ -49,8 +23,37 @@ interface ItemInterface {
 
 // Render the table using the updated ItemInterface
 export default function Inbox(): JSX.Element {
+  const [data, setData] = useState<ItemInterface[]>([]);
+
+  useEffect(() => {
+    const getLast7Records = async () => {
+      const userId = await getUserId();
+
+      try {
+        const { data, error } = await client
+          .from('pqr_form')
+          .select('creation_time, message, subject, state, category(category)')
+          .eq('id_profile', userId)
+          .order('id', { ascending: false })
+          .limit(7);
+
+        if (error) {
+          console.error(error);
+          setData([]); // Set empty data if an error occurs
+        } else {
+          setData(data || []); // Set fetched data or an empty array
+        }
+      } catch (error) {
+        console.error(error);
+        setData([]); // Set empty data in case of an exception
+      }
+    };
+
+    getLast7Records();
+  }, []); // Run this effect only once when the component mounts
+
   return (
-    <div className="">
+    <div className="bg-white shadow-sm border h-full rounded-md p-5 ">
       <Table>
         {/* Table structure remains the same */}
         <TableCaption>Last 7 Pqrs</TableCaption>

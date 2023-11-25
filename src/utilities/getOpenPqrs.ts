@@ -13,12 +13,10 @@ export const getOpenPqrs = async () => {
       .eq('state', 'open');
 
     if (error) {
-      console.error('Error al actualizar el campo message:', error.message);
       return [];
     }
 
     if (data) {
-      console.log('Campo message actualizado con éxito:', data);
       return data.length || [];
     }
   } catch (error) {

@@ -17,19 +17,16 @@ export default function Auth() {
   const dispatch = useDispatch();
   const userState = useSelector((store: RootState) => store.user);
 
-  console.log('user ', userState);
-
   useEffect(() => {
     client.auth
       .getSession()
       .then((data) => {
         if (data.data.session != null) {
-          console.log(data);
           dispatch(addUser(data.data));
           navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true });
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   }, [dispatch, navigate]);
   if (userState.data != null) {
     navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true });

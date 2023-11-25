@@ -1,21 +1,45 @@
 import { pqrQuantity } from '@/utilities/getTotalPqrs';
-
 import {
   getNumberOfClaims,
   getNumberOfRequest,
 } from '@/utilities/getNumberOfClaims';
 import { getOpenPqrs } from '@/utilities/getOpenPqrs';
-
-const data = await pqrQuantity();
-const totalClaims = await getNumberOfClaims();
-const totalRequest = await getNumberOfRequest();
-const openPqrs = await getOpenPqrs();
+import { useEffect, useState } from 'react';
 
 export const UserKPI = (): JSX.Element => {
+  const [data, setData] = useState<number | undefined>(undefined);
+  const [totalClaims, setTotalClaims] = useState<number | undefined>(undefined);
+  const [totalRequest, setTotalRequest] = useState<number | undefined>(
+    undefined
+  );
+  const [openPqrs, setOpenPqrs] = useState<number | undefined>(undefined);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const pqrsQuantity = await pqrQuantity();
+        setData(Array.isArray(pqrsQuantity) ? pqrsQuantity.length : undefined);
+
+        const claims = await getNumberOfClaims();
+        setTotalClaims(Array.isArray(claims) ? undefined : claims);
+
+        const requests = await getNumberOfRequest();
+        setTotalRequest(Array.isArray(requests) ? undefined : requests);
+
+        const openPqrsCount = await getOpenPqrs();
+        setOpenPqrs(Array.isArray(openPqrsCount) ? undefined : openPqrsCount);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="flex gap-10">
       <Card
-        textPrincipal={data?.length}
+        textPrincipal={data}
         texSecundary="Total PQR's"
         className=" bg-blue-200"
       ></Card>

@@ -7,7 +7,6 @@ body,
 #root {
   /* @apply bg-white text-black box-border; */
   @apply text-black box-border;
-  font-family: sans-serif;
 }
 
 .kabanContainer ::-webkit-scrollbar {

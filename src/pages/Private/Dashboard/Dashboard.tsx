@@ -1,6 +1,4 @@
-// import { LogOut } from '..';
-import { client } from '@/supabase';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   Bell,
   SquaresFour,
@@ -28,20 +26,6 @@ export default function Dashboard() {
    */
   const [open, setOpen] = useState<boolean>(true);
   const [section, setSection] = useState(String);
-
-  const [id, setId] = useState(String);
-  useEffect(() => {
-    client.auth
-      .getSession()
-      .then((data) => {
-        if (data.data.session != null) {
-          setId(data.data.session.user.id);
-        }
-      })
-      .catch((error) => console.log(error));
-  }, []);
-
-  console.log(id);
 
   const setSectionOpen = (): JSX.Element => {
     switch (section) {
@@ -150,11 +134,7 @@ export default function Dashboard() {
             </LogOut>
           </ul>
         </div>
-        <div className="bg-[#f9fafb] p-8 h-full w-full">
-          <div className=" bg-white shadow-sm border h-full rounded-md p-5 ">
-            {setSectionOpen()}
-          </div>
-        </div>
+        <div className="bg-[#f9fafb] p-5 h-full w-full">{setSectionOpen()}</div>
       </div>
     </div>
   );
@@ -162,14 +142,16 @@ export default function Dashboard() {
 
 const DashboardHome = (): JSX.Element => {
   return (
-    <div className="flex flex-col gap-16">
-      <UserKPI></UserKPI>
-      <div className="  flex w-full h-full gap-10 ">
-        <div className="bg-white w-3/5 rounded-md border">
-          <Chart></Chart>
-        </div>
-        <div className="bg-white w-2/5 rounded-md border">
-          <CardShareLink></CardShareLink>
+    <div className=" bg-white shadow-sm border h-full rounded-md p-5 ">
+      <div className="flex flex-col gap-16">
+        <UserKPI></UserKPI>
+        <div className="  flex w-full h-full gap-10 ">
+          <div className="bg-white w-3/5 ">
+            <Chart></Chart>
+          </div>
+          <div className="bg-white w-2/5 ">
+            <CardShareLink></CardShareLink>
+          </div>
         </div>
       </div>
     </div>

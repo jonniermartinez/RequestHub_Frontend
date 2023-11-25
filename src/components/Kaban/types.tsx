@@ -4,14 +4,14 @@ export type Column = {
   id: Id;
   title: string;
 };
-interface Category {
-  category: string;
-}
+// interface Category {
+//   category: string;
+// }
 export type Task = {
   id: Id;
   columnId: Id;
   content: string;
-  category: Category[]; // Define category as an array of objects with a 'category' string property
+  category: string; // Define category as an array of objects with a 'category' string property
   subject: string;
   state: string;
 };
