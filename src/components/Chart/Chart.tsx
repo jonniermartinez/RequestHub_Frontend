@@ -1,6 +1,4 @@
 import {
-  BarChart,
-  Bar,
   XAxis,
   YAxis,
   CartesianGrid,

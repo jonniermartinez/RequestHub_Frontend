@@ -1,3 +1,3 @@
-interface IProps {
-    empresa: string;
+export interface IProps {
+  empresa: string;
 }

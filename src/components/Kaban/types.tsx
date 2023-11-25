@@ -9,14 +9,14 @@ export type Task = {
   id: Id;
   columnId: Id;
   content: string;
-  category: string | any;
+  category: string;
   subject: string;
   state: string;
 };
 
 export type Task1 = {
   id: Id;
-  category: string | any;
+  category: string;
   // id_pqr: Id;
 };
 
@@ -28,4 +28,3 @@ export type Task3 = {
   state: string;
   id: Id;
 };
-

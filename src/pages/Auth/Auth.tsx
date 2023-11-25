@@ -30,7 +30,7 @@ export default function Auth() {
         }
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [dispatch, navigate]);
   if (userState.data != null) {
     navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true });
   }

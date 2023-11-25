@@ -143,7 +143,7 @@ function KanbanBoard(): JSX.Element {
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
 
   const [activeTask, setActiveTask] = useState<Task | null>(null);
-
+  activeTask;
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -224,29 +224,23 @@ function KanbanBoard(): JSX.Element {
 
   // ACTUALIZAR CONTENIDO DE LA TASK
   function updateTask(id: Id, content: string) {
-    let taskId: any;
-    let nuevoMessage: any;
-
     const newTasks = tasks.map((task) => {
       if (task.id !== id) return task;
       return { ...task, content };
     });
 
-    nuevoMessage = content;
-    taskId = id;
-
     // actualizarCampoMessage(taskId, nuevoMessage);
     setTasks(newTasks);
   }
 
-  function createNewColumn() {
-    const columnToAdd: Column = {
-      id: generateId(),
-      title: `Column ${columns.length + 1}`,
-    };
+  // function createNewColumn() {
+  //   const columnToAdd: Column = {
+  //     id: generateId(),
+  //     title: `Column ${columns.length + 1}`,
+  //   };
 
-    setColumns([...columns, columnToAdd]);
-  }
+  //   setColumns([...columns, columnToAdd]);
+  // }
 
   function deleteColumn(id: Id) {
     const filteredColumns = columns.filter((col) => col.id !== id);
@@ -319,8 +313,8 @@ function KanbanBoard(): JSX.Element {
 
     // Im dropping a Task over another Task
     if (isActiveATask && isOverATask) {
-      let taskId: any;
-      let nuevoValorTablero: any;
+      let taskId: Id = '';
+      let nuevoValorTablero: Id = '';
 
       setTasks((tasks) => {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
@@ -346,8 +340,8 @@ function KanbanBoard(): JSX.Element {
 
     // Arrastrar tarea sobre una columna
     if (isActiveATask && isOverAColumn) {
-      let taskId: any;
-      let nuevoValorTablero: any;
+      let taskId: Id = '';
+      let nuevoValorTablero: Id = '';
 
       setTasks((tasks) => {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
@@ -372,10 +366,7 @@ function generateId() {
 export default KanbanBoard;
 
 // Realiza la actualización en la base de datos del campo tablero
-async function actualizarCampoTablero(
-  taskId: number,
-  nuevoValorTablero: string
-) {
+async function actualizarCampoTablero(taskId: Id, nuevoValorTablero: string) {
   fetchDataFromDatabase();
   // isChanged = true
   try {

@@ -4,7 +4,6 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { client } from '@/supabase';
 import { Task1, Task2, Task3 } from './types';
-import type { Id as CategoryIdType } from './types';
 
 interface Props {
   task: Task;
@@ -17,7 +16,7 @@ let defaultTasks: Task1[] = [];
 let defaultTasks1: Task1[] = [];
 let defaultTasks2: Task1[] = [];
 let categorysData: Task1[] = [];
-let stateData: Task3[] = [];
+const stateData: Task3[] = [];
 
 // Traer las tareas To do
 const { data: dataTodo, error: errorTodo } = await client
@@ -36,7 +35,7 @@ if (dataTodo && dataTodo.length > 0) {
   dataTodo.forEach((item) => {
     defaultTasks.push({
       id: item.id,
-      category: item.category,
+      category: item.category.toString(),
     });
   });
 }
@@ -58,7 +57,7 @@ if (dataDoing && dataDoing.length > 0) {
   dataDoing.forEach((item) => {
     defaultTasks1.push({
       id: item.id,
-      category: item.category,
+      category: item.category.toString(),
     });
   });
 }
@@ -80,7 +79,7 @@ if (dataDone && dataDone.length > 0) {
   dataDone.forEach((item) => {
     defaultTasks2.push({
       id: item.id,
-      category: item.category,
+      category: item.category.toString(),
     });
   });
 }
@@ -127,7 +126,7 @@ defaultTasks = [...defaultTasks, ...defaultTasks1, ...defaultTasks2];
 
 console.log('stateData: ', stateData);
 
-const getCategotyIdByName = async (catName: String) => {
+const getCategotyIdByName = async (catName: string) => {
   // try {
   const { data: dataCat, error: errorCat } = await client
     .from('category')
@@ -141,14 +140,11 @@ const getCategotyIdByName = async (catName: String) => {
   return dataCat;
 };
 
-function TaskCard({ task, deleteTask, updateTask }: Props) {
-  const [mouseIsOver, setMouseIsOver] = useState(false);
+function TaskCard({ task, updateTask }: Props) {
   const [editMode, setEditMode] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [categoryId, setCategoryId] = useState<CategoryIdType>('');
 
   const categorias = defaultTasks.find((item) => item.id === task.id)?.category;
-  const stateDat = stateData.find((item) => item.id !== task.id)?.state;
+  categorias;
 
   // Función pra actualizar la categoría en la base de datos
   async function updateCategoryInDatabase(catId: Id) {
@@ -163,6 +159,7 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
       if (error) {
         console.error('Error al actualizar la categoría:', error.message);
       } else {
+        console.log(data);
       }
     } catch (error) {
       console.error('Error al actualizar la categoría:', error.message);
@@ -192,7 +189,7 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
 
   const toggleEditMode = () => {
     setEditMode((prev) => !prev);
-    setMouseIsOver(false);
+    // setMouseIsOver(false);
   };
 
   if (isDragging) {
@@ -257,6 +254,7 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
       console.error('Error al manejar la selección:', error);
     }
   };
+  handletSelect;
 
   // ACTUALIZAR ESTADO
   const setState = async (newState: string) => {
@@ -273,7 +271,7 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
       console.error('Error al manejar la actualización de estado:', error);
     }
   };
-
+  setState;
   // console.log('currentState: ',currentState);
 
   // if (currentState) {
@@ -290,12 +288,6 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
       //   Contenedor de tareas individuales
       // className="task-content bg-mainBackgroundColor p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl cursor-grab relfative task"
       className="task-content bg-mainBackgroundColor p-2.5 h-[200px] min-h-[200px] items-center flex text-left rounded-xl cursor-grab relative task"
-      onMouseEnter={() => {
-        setMouseIsOver(true);
-      }}
-      onMouseLeave={() => {
-        setMouseIsOver(false);
-      }}
     >
       <div className="">
         <div className="">
@@ -304,12 +296,12 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
             {/* {task.content} */}
             {task.content}
           </p>
-          <span
+          {/* <span
             className="btn-cat h-[30px] w-[90px] justify-center inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
             key={task.id}
           >
             {categorias?.category}
-          </span>
+          </span> */}
         </div>
       </div>
     </div>
