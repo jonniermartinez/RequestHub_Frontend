@@ -1,5 +1,5 @@
-import { Button } from "..";
-import { Container } from "..";
+import { Button } from '..';
+import { Container } from '..';
 
 export function Hero() {
   return (
@@ -16,7 +16,7 @@ export function Hero() {
           <div className="relative pt-20 ml-auto">
             <div className="lg:w-2/3 text-center mx-auto">
               <h1 className="text-gray-900 dark:text-white font-bold text-5xl md:text-6xl xl:text-7xl">
-                The new way to manage{" "}
+                The new way to manage{' '}
                 <span className="text-primary dark:text-white">Claims</span> of
                 you bussines
               </h1>
@@ -29,94 +29,13 @@ export function Hero() {
                   <Button size="lg">Get started</Button>
                 </a>
                 <a href="#features">
-                  <Button size="lg" variant={"outline"}>
+                  <Button size="lg" variant={'outline'}>
                     Learn more
                   </Button>
                 </a>
               </div>
-              <div className="hidden py-8 mt-16 border-y border-gray-100 dark:border-gray-800 sm:flex justify-between">
-                <div className="text-left">
-                  <h6 className="text-lg font-semibold text-gray-700 dark:text-white">
-                    The lowest price
-                  </h6>
-                  <p className="mt-2 text-gray-500">Some text here</p>
-                </div>
-                <div className="text-left">
-                  <h6 className="text-lg font-semibold text-gray-700 dark:text-white">
-                    The fastest on the market
-                  </h6>
-                  <p className="mt-2 text-gray-500">Some text here</p>
-                </div>
-                <div className="text-left">
-                  <h6 className="text-lg font-semibold text-gray-700 dark:text-white">
-                    The most loved
-                  </h6>
-                  <p className="mt-2 text-gray-500">Some text here</p>
-                </div>
-              </div>
             </div>
-            {/* <div className="mt-12 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6">
-            <div className="p-4 grayscale transition duration-200 hover:grayscale-0">
-              <img
-                src="./images/clients/microsoft.svg"
-                className="h-12 w-auto mx-auto"
-                loading="lazy"
-                alt="client logo"
-                width=""
-                height=""
-              />
-            </div>
-            <div className="p-4 grayscale transition duration-200 hover:grayscale-0">
-              <img
-                src="./images/clients/airbnb.svg"
-                className="h-12 w-auto mx-auto"
-                loading="lazy"
-                alt="client logo"
-                width=""
-                height=""
-              />
-            </div>
-            <div className="p-4 flex grayscale transition duration-200 hover:grayscale-0">
-              <img
-                src="./images/clients/google.svg"
-                className="h-9 w-auto m-auto"
-                loading="lazy"
-                alt="client logo"
-                width=""
-                height=""
-              />
-            </div>
-            <div className="p-4 grayscale transition duration-200 hover:grayscale-0">
-              <img
-                src="./images/clients/ge.svg"
-                className="h-12 w-auto mx-auto"
-                loading="lazy"
-                alt="client logo"
-                width=""
-                height=""
-              />
-            </div>
-            <div className="p-4 flex grayscale transition duration-200 hover:grayscale-0">
-              <img
-                src="./images/clients/netflix.svg"
-                className="h-8 w-auto m-auto"
-                loading="lazy"
-                alt="client logo"
-                width=""
-                height=""
-              />
-            </div>
-            <div className="p-4 grayscale transition duration-200 hover:grayscale-0">
-              <img
-                src="./images/clients/google-cloud.svg"
-                className="h-12 w-auto mx-auto"
-                loading="lazy"
-                alt="client logo"
-                width=""
-                height=""
-              />
-            </div>
-          </div> */}
+
             <div className="w-full mx-auto mt-20 text-center md:w-10/12">
               <div className="relative z-0 w-full mt-8">
                 <div className="relative overflow-hidden shadow-2xl">

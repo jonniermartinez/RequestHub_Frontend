@@ -1,3 +1,0 @@
-interface IProps {
-    empresa: string;
-}

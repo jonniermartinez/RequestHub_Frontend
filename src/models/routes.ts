@@ -1,6 +1,7 @@
 export const PublicRoutes = {
   PQR: "pqr",
   AUTH: "login",
+  PRICING: "pricing",
   LANDIGN: "",
 };
 

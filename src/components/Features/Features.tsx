@@ -1,4 +1,4 @@
-import { Container } from "..";
+import { Container } from '..';
 interface Props {
   title: string;
   description: string;

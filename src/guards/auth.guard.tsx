@@ -1,11 +1,11 @@
-import { useSelector } from "react-redux";
-import { Navigate, Outlet } from "react-router-dom";
-import { PublicRoutes } from "../models";
-import { RootState } from "../redux/store";
-import { useEffect } from "react";
-import { client } from "@/supabase";
-import { useDispatch } from "react-redux";
-import { addUser } from "@/redux/states/userSlice";
+import { useSelector } from 'react-redux';
+import { Navigate, Outlet } from 'react-router-dom';
+import { PublicRoutes } from '../models';
+import { RootState } from '../redux/store';
+import { useEffect } from 'react';
+import { client } from '@/supabase';
+import { useDispatch } from 'react-redux';
+import { addUser } from '@/redux/states/userSlice';
 
 const PrivateValidationFragment = <Outlet />;
 const PublicValidationFragment = <Navigate replace to={PublicRoutes.AUTH} />;
@@ -15,21 +15,30 @@ export const AuthGuard = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    client.auth
-      .getSession()
-      .then((data) => {
-        dispatch(addUser(data.data));
-        return PrivateValidationFragment;
-      })
-      .catch((error) => console.log(error));
-  }, []);
+    const checkUserSession = async () => {
+      try {
+        const { data, error } = await client.auth.getSession();
 
-  // Si user.data.seccion exite que siga con Outlet
+        if (error) {
+          throw error;
+        }
+
+        if (data?.session?.user) {
+          dispatch(addUser(data.session.user));
+        }
+      } catch (error) {
+        console.error('Error fetching user session:', error);
+        // Manejar el error al obtener la sesión del usuario
+        // Puedes redirigir a una página de error o hacer otra acción apropiada aquí
+      }
+    };
+
+    checkUserSession();
+  }, [dispatch]);
+
   if (userState.data) {
     return PrivateValidationFragment;
-  }
-  // Si user.data.seccion no exite por favor te me vas para el login
-  if (!userState.data) {
+  } else {
     return PublicValidationFragment;
   }
 };
