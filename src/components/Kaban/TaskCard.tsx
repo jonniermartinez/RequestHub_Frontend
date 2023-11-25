@@ -81,9 +81,9 @@ const TaskContend = ({ task }: Props): JSX.Element => {
       <p className="font-semibold">{task.subject}</p>
       <p className=" text-sm opacity-75">{task.content}</p>
       <div>
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+        {/* <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
           {task.category}
-        </span>
+        </span> */}
       </div>
     </div>
   );
