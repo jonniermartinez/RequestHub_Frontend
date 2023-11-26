@@ -61,8 +61,8 @@ function Pricing() {
         </div>
 
         <div className="flex gap-4 absolute z-30 ">
-          <PricingItem title="Twon +" plan="Plan Plus+" description="A plan that will allow you to create more drafts without any daily blocking." price="3.99"></PricingItem>
-          <PricingItem title="Twon Pro" plan="Plan Plus+" description="A plan that will allow you to create more drafts without any daily blocking." price="7.99"></PricingItem>
+          <PricingItem title="RequestHub +" plan="RequestHub +" description="A plan that will allow you to create more drafts without any daily blocking." price="6.99"></PricingItem>
+          <PricingItem title="RequestHub Pro" plan="Plan Plus+" description="A plan that will allow you to create more drafts without any daily blocking." price="8.99"></PricingItem>
         </div>
       </div>
     </>
