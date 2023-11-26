@@ -46,7 +46,7 @@ export function Hero() {
                       <div className="w-3 h-3 border-2 border-white rounded-full"></div>
                     </div>
                   </div>
-                  <img src="https://raw.githubusercontent.com/jonniermartinez/RequestHub_Frontend/main/src/components/Hero/dashboard.png?token=GHSAT0AAAAAACH7IPCSOOF6VAD352QMIKKWZLDYWMQ" />
+                  <img src="https://github.com/jonniermartinez/RequestHub_Frontend/blob/main/src/components/Hero/dashboard.png" />
                 </div>
               </div>
             </div>
