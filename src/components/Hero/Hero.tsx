@@ -46,7 +46,7 @@ export function Hero() {
                       <div className="w-3 h-3 border-2 border-white rounded-full"></div>
                     </div>
                   </div>
-                  <img src="./dashboard.png" />
+                  <img src="/public/dashboard.png" />
                 </div>
               </div>
             </div>
