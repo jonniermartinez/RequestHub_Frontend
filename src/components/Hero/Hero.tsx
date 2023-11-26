@@ -1,5 +1,6 @@
 import { Button } from '..';
 import { Container } from '..';
+import image from "./../../../public/dashboard.png"
 
 export function Hero() {
   return (
@@ -46,7 +47,7 @@ export function Hero() {
                       <div className="w-3 h-3 border-2 border-white rounded-full"></div>
                     </div>
                   </div>
-                  <img src="https://github.com/jonniermartinez/RequestHub_Frontend/blob/main/public/dashboard.png?raw=true" />
+                  <img src={image} />
                 </div>
               </div>
             </div>
