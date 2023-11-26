@@ -46,7 +46,7 @@ export function Hero() {
                       <div className="w-3 h-3 border-2 border-white rounded-full"></div>
                     </div>
                   </div>
-                  <img src="../../public/dashboard.png" />
+                  <img src="https://github.com/jonniermartinez/RequestHub_Frontend/blob/main/public/dashboard.png?raw=true" />
                 </div>
               </div>
             </div>
