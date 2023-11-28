@@ -105,7 +105,7 @@ const PQRCompo = ({ empresa, profileId }: Props) => {
           message: formData.message,
           pqr_type: formData.pqrType,
           id_profile: profileId,
-          state: "Abierto",
+          state: "open",
           pqr_owner: ownerId,
         })
         .single();
